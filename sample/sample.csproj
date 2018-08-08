@@ -149,6 +149,9 @@
     <Reference Include="Microsoft.Azure.Management.Profiles.profile_2017_03_09.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Management.Profiles.profile_2017_03_09.ResourceManager.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.profile_2017_03_09.ResourceManager.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.profile_2017_03_09.Storage, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.profile_2017_03_09.Storage.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.profile_2017_03_09.Storage.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Management.Redis.Fluent, Version=1.0.0.60, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Management.Redis.Fluent.1.14.0\lib\net452\Microsoft.Azure.Management.Redis.Fluent.dll</HintPath>
     </Reference>

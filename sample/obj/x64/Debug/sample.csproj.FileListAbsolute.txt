@@ -254,3 +254,4 @@ C:\Repos\azure-sdk-for-net-samples\sample\obj\x64\Debug\sample.csproj.CoreCompil
 C:\Repos\azure-sdk-for-net-samples\sample\obj\x64\Debug\sample.csproj.CopyComplete
 C:\Repos\azure-sdk-for-net-samples\sample\obj\x64\Debug\sample.exe
 C:\Repos\azure-sdk-for-net-samples\sample\obj\x64\Debug\sample.pdb
+C:\repos\azure-sdk-for-net-samples\sample\bin\x64\Debug\Microsoft.Azure.Management.Profiles.profile_2017_03_09.Storage.dll

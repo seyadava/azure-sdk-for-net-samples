@@ -10,6 +10,7 @@ using stackauth = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authori
 using stackcompute = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Compute;
 using stackresource = Microsoft.Azure.Management.Profiles.profile_2017_03_09.ResourceManager;
 using stacknetwork = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Network;
+using stackstorage = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Storage;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using System;
@@ -49,6 +50,7 @@ namespace sample
             var networkclient = GetNetworkClient(baseUri, credentials, subscriptionId);
             var resourceGroupClient = GetResourceGroupClient(baseUri, credentials, subscriptionId);
             var computeClient = GetComputeClient(baseUri, credentials, subscriptionId);
+            var storageClient = GetStorageClient(baseUri, credentials, subscriptionId);
 
             var rgname = "test-dotnet-rg2";
             var rg = resourceGroupClient.ResourceGroups.CreateOrUpdateWithHttpMessagesAsync(rgname, parameters: new stackresource.Models.ResourceGroup {
@@ -137,12 +139,71 @@ namespace sample
                 Console.WriteLine("Could not create network interface");
             }
 
-            var vmName = "test-dotnet-vm";
-            //var vm = new stackcompute.Models.VirtualMachine
-            //{
-            //    Location: location,
+            var storageAccountName = "test-dotnet-sa";
+            var storageAccountParameters = new stackstorage.Models.StorageAccountCreateParameters
+            {
+                Location = location,
+                Kind = stackstorage.Models.Kind.Storage,
+                Sku = new stackstorage.Models.Sku(stackstorage.Models.SkuName.StandardLRS)
+            };
 
-            //};
+            var storageAccountResponse = storageClient.StorageAccounts.CreateWithHttpMessagesAsync(rgname, storageAccountName, storageAccountParameters).Result;
+            if (!storageAccountResponse.Response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Could not create storage account");
+            }
+            var vmName = "test-dotnet-vm";
+            var vhdURItemplate = "https://" + storageAccountName + ".blob.redmond.ext-n22r1002.masd.stbtest.microsoft.com/vhds/" + vmName + ".vhd";
+            var vm = new stackcompute.Models.VirtualMachine
+            {
+                Location = location,
+                NetworkProfile = new stackcompute.Models.NetworkProfile
+                {
+                    NetworkInterfaces = new List<stackcompute.Models.NetworkInterfaceReference>
+                    {
+                        new stackcompute.Models.NetworkInterfaceReference
+                        {
+                            Id = nicResponse.Body.Id,
+                            Primary = true
+                        }
+                    }
+                },
+                StorageProfile = new stackcompute.Models.StorageProfile
+                {
+                    ImageReference = new stackcompute.Models.ImageReference
+                    {
+                        Publisher = "Canonical",
+                        Offer = "UbuntuServer",
+                        Sku = "16.04-LTS",
+                        Version = "latest"
+                    },
+                    OsDisk = new stackcompute.Models.OSDisk
+                    {
+                        Name = "osDisk",
+                        Vhd = new stackcompute.Models.VirtualHardDisk
+                        {
+                            Uri = vhdURItemplate
+                        },
+                        CreateOption = stackcompute.Models.DiskCreateOptionTypes.FromImage
+                    }
+                },
+                OsProfile = new stackcompute.Models.OSProfile
+                {
+                    ComputerName = vmName,
+                    AdminUsername = "useradmin",
+                    AdminPassword = "!!123abc"
+                },
+                HardwareProfile = new stackcompute.Models.HardwareProfile
+                {
+                    VmSize = "Standard_A1"
+                }
+            };
+
+            var vmResponse = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(rgname, vmName, vm).Result;
+            if (!vmResponse.Response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Could not create virtual machine");
+            }
             //var stacknetworkclient = new stacknetwork.NetworkManagementClient(new CustomLoginCredentials());
             //stacknetworkclient.SubscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
 
@@ -172,7 +233,7 @@ namespace sample
             //    Location = "eastus",
             //    IpConfigurations = new List<stacknetwork.Models.NetworkInterfaceIPConfiguration> { ipconfig }
             //}).Result; 
-            
+
             //var a = new stackcompute.Models.NetworkInterfaceReference
             //{
             //    Id = "nic111",
@@ -207,6 +268,13 @@ namespace sample
         public static stackcompute.ComputeManagementClient GetComputeClient(Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
         {
             var client = new stackcompute.ComputeManagementClient(baseUri: baseUri, credentials: credentials);
+            client.SubscriptionId = subscriotionId;
+            return client;
+        }
+        
+        public static stackstorage.StorageManagementClient GetStorageClient(Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
+        {
+            var client = new stackstorage.StorageManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
