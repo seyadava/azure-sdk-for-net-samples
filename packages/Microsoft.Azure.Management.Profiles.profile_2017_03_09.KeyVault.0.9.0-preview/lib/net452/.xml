@@ -1,0 +1,2944 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient">
+            <summary>
+            The Azure management API provides a RESTful set of web services that
+            interact with Azure Key Vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.BaseUri">
+            <summary>
+            The base URI of the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.SerializationSettings">
+            <summary>
+            Gets or sets json serialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.DeserializationSettings">
+            <summary>
+            Gets or sets json deserialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.Credentials">
+            <summary>
+            Credentials needed for the client to connect to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.SubscriptionId">
+            <summary>
+            Subscription credentials which uniquely identify Microsoft Azure
+            subscription. The subscription ID forms part of the URI for every
+            service call.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.ApiVersion">
+            <summary>
+            Client Api Version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.AcceptLanguage">
+            <summary>
+            Gets or sets the preferred language for the response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.LongRunningOperationRetryTimeout">
+            <summary>
+            Gets or sets the retry timeout in seconds for Long Running
+            Operations. Default value is 30.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.GenerateClientRequestId">
+            <summary>
+            When set to true a unique x-ms-client-request-id value is generated
+            and included in each request. Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.Vaults">
+            <summary>
+            Gets the IVaultsOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IKeyVaultManagementClient.Operations">
+            <summary>
+            Gets the IOperations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations">
+            <summary>
+            Operations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations.ListWithHttpMessagesAsync(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations">
+            <summary>
+            VaultsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.CreateOrUpdateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Create or update a key vault in the specified subscription.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to create or update the vault
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.UpdateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Update a key vault in the specified subscription.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to patch the vault
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.DeleteWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified Azure key vault.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault to delete
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.GetWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets the specified Azure key vault.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.UpdateAccessPolicyWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyUpdateKind,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Update access policies in a key vault in the specified
+            subscription.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='operationKind'>
+            Name of the operation. Possible values include: 'add', 'replace',
+            'remove'
+            </param>
+            <param name='parameters'>
+            Access policy to merge into the vault
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListByResourceGroupWithHttpMessagesAsync(System.String,System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated
+            with the subscription and within the specified resource group.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListBySubscriptionWithHttpMessagesAsync(System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated
+            with the subscription.
+            </summary>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListDeletedWithHttpMessagesAsync(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.GetDeletedWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets the deleted Azure key vault.
+            </summary>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='location'>
+            The location of the deleted vault.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.PurgeDeletedWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted
+            Azure key vault.
+            </summary>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListWithHttpMessagesAsync(System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated
+            with the subscription.
+            </summary>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.CheckNameAvailabilityWithHttpMessagesAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Checks that the vault name is valid and is not already in use.
+            </summary>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.BeginPurgeDeletedWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted
+            Azure key vault.
+            </summary>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListByResourceGroupNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated
+            with the subscription and within the specified resource group.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListBySubscriptionNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated
+            with the subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListDeletedNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated
+            with the subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient">
+            <summary>
+            The Azure management API provides a RESTful set of web services that
+            interact with Azure Key Vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.BaseUri">
+            <summary>
+            The base URI of the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.SerializationSettings">
+            <summary>
+            Gets or sets json serialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.DeserializationSettings">
+            <summary>
+            Gets or sets json deserialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.Credentials">
+            <summary>
+            Credentials needed for the client to connect to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.SubscriptionId">
+            <summary>
+            Subscription credentials which uniquely identify Microsoft Azure
+            subscription. The subscription ID forms part of the URI for every service
+            call.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.ApiVersion">
+            <summary>
+            Client Api Version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.AcceptLanguage">
+            <summary>
+            Gets or sets the preferred language for the response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.LongRunningOperationRetryTimeout">
+            <summary>
+            Gets or sets the retry timeout in seconds for Long Running Operations.
+            Default value is 30.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.GenerateClientRequestId">
+            <summary>
+            When set to true a unique x-ms-client-request-id value is generated and
+            included in each request. Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.Vaults">
+            <summary>
+            Gets the IVaultsOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.Operations">
+            <summary>
+            Gets the IOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(System.Uri,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(System.Uri,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(System.Uri,Microsoft.Rest.ServiceClientCredentials,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.#ctor(System.Uri,Microsoft.Rest.ServiceClientCredentials,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the KeyVaultManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient.Initialize">
+            <summary>
+            Initializes client properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry">
+            <summary>
+            An identity that have access to the key vault. All identities in the
+            array must use the same tenant ID as the key vault's tenant ID.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.#ctor">
+            <summary>
+            Initializes a new instance of the AccessPolicyEntry class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.#ctor(System.Guid,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions,System.Nullable{System.Guid})">
+            <summary>
+            Initializes a new instance of the AccessPolicyEntry class.
+            </summary>
+            <param name="tenantId">The Azure Active Directory tenant ID that
+            should be used for authenticating requests to the key
+            vault.</param>
+            <param name="objectId">The object ID of a user, service principal
+            or security group in the Azure Active Directory tenant for the
+            vault. The object ID must be unique for the list of access
+            policies.</param>
+            <param name="permissions">Permissions the identity has for keys,
+            secrets and certificates.</param>
+            <param name="applicationId"> Application ID of the client making
+            request on behalf of a principal</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.TenantId">
+            <summary>
+            Gets or sets the Azure Active Directory tenant ID that should be
+            used for authenticating requests to the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.ObjectId">
+            <summary>
+            Gets or sets the object ID of a user, service principal or security
+            group in the Azure Active Directory tenant for the vault. The
+            object ID must be unique for the list of access policies.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.ApplicationId">
+            <summary>
+            Gets or sets  Application ID of the client making request on behalf
+            of a principal
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.Permissions">
+            <summary>
+            Gets or sets permissions the identity has for keys, secrets and
+            certificates.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyUpdateKind">
+            <summary>
+            Defines values for AccessPolicyUpdateKind.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CertificatePermissions">
+            <summary>
+            Defines values for CertificatePermissions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CheckNameAvailabilityResult">
+            <summary>
+            The CheckNameAvailability operation response.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CheckNameAvailabilityResult.#ctor">
+            <summary>
+            Initializes a new instance of the CheckNameAvailabilityResult
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CheckNameAvailabilityResult.#ctor(System.Nullable{System.Boolean},System.Nullable{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Reason},System.String)">
+            <summary>
+            Initializes a new instance of the CheckNameAvailabilityResult
+            class.
+            </summary>
+            <param name="nameAvailable">A boolean value that indicates whether
+            the name is available for you to use. If true, the name is
+            available. If false, the name has already been taken or is invalid
+            and cannot be used.</param>
+            <param name="reason">The reason that a vault name could not be
+            used. The Reason element is only returned if NameAvailable is
+            false. Possible values include: 'AccountNameInvalid',
+            'AlreadyExists'</param>
+            <param name="message">An error message explaining the Reason value
+            in more detail.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CheckNameAvailabilityResult.NameAvailable">
+            <summary>
+            Gets a boolean value that indicates whether the name is available
+            for you to use. If true, the name is available. If false, the name
+            has already been taken or is invalid and cannot be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CheckNameAvailabilityResult.Reason">
+            <summary>
+            Gets the reason that a vault name could not be used. The Reason
+            element is only returned if NameAvailable is false. Possible values
+            include: 'AccountNameInvalid', 'AlreadyExists'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CheckNameAvailabilityResult.Message">
+            <summary>
+            Gets an error message explaining the Reason value in more detail.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CreateMode">
+            <summary>
+            Defines values for CreateMode.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault">
+            <summary>
+            Deleted vault information with extended details.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault.#ctor">
+            <summary>
+            Initializes a new instance of the DeletedVault class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault.#ctor(System.String,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties)">
+            <summary>
+            Initializes a new instance of the DeletedVault class.
+            </summary>
+            <param name="id">The resource ID for the deleted key vault.</param>
+            <param name="name">The name of the key vault.</param>
+            <param name="type">The resource type of the key vault.</param>
+            <param name="properties">Properties of the vault</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault.Id">
+            <summary>
+            Gets the resource ID for the deleted key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault.Name">
+            <summary>
+            Gets the name of the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault.Type">
+            <summary>
+            Gets the resource type of the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVault.Properties">
+            <summary>
+            Gets or sets properties of the vault
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties">
+            <summary>
+            Properties of the deleted vault.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.#ctor">
+            <summary>
+            Initializes a new instance of the DeletedVaultProperties class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.#ctor(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the DeletedVaultProperties class.
+            </summary>
+            <param name="vaultId">The resource id of the original
+            vault.</param>
+            <param name="location">The location of the original vault.</param>
+            <param name="deletionDate">The deleted date.</param>
+            <param name="scheduledPurgeDate">The scheduled purged date.</param>
+            <param name="tags">Tags of the original vault.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.VaultId">
+            <summary>
+            Gets the resource id of the original vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.Location">
+            <summary>
+            Gets the location of the original vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.DeletionDate">
+            <summary>
+            Gets the deleted date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.ScheduledPurgeDate">
+            <summary>
+            Gets the scheduled purged date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.DeletedVaultProperties.Tags">
+            <summary>
+            Gets tags of the original vault.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.KeyPermissions">
+            <summary>
+            Defines values for KeyPermissions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification">
+            <summary>
+            Log specification of operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification.#ctor">
+            <summary>
+            Initializes a new instance of the LogSpecification class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the LogSpecification class.
+            </summary>
+            <param name="name">Name of log specification.</param>
+            <param name="displayName">Display name of log
+            specification.</param>
+            <param name="blobDuration">Blob duration of specification.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification.Name">
+            <summary>
+            Gets or sets name of log specification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification.DisplayName">
+            <summary>
+            Gets or sets display name of log specification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification.BlobDuration">
+            <summary>
+            Gets or sets blob duration of specification.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation">
+            <summary>
+            Key Vault REST API operation definition.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation.#ctor">
+            <summary>
+            Initializes a new instance of the Operation class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation.#ctor(System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.ServiceSpecification)">
+            <summary>
+            Initializes a new instance of the Operation class.
+            </summary>
+            <param name="name">Operation name:
+            {provider}/{resource}/{operation}</param>
+            <param name="display">Display metadata associated with the
+            operation.</param>
+            <param name="origin">The origin of operations.</param>
+            <param name="serviceSpecification">One property of operation,
+            include metric specifications.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation.Name">
+            <summary>
+            Gets or sets operation name: {provider}/{resource}/{operation}
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation.Display">
+            <summary>
+            Gets or sets display metadata associated with the operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation.Origin">
+            <summary>
+            Gets or sets the origin of operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Operation.ServiceSpecification">
+            <summary>
+            Gets or sets one property of operation, include metric
+            specifications.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay">
+            <summary>
+            Display metadata associated with the operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay.#ctor">
+            <summary>
+            Initializes a new instance of the OperationDisplay class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the OperationDisplay class.
+            </summary>
+            <param name="provider">Service provider: Microsoft Key
+            Vault.</param>
+            <param name="resource">Resource on which the operation is performed
+            etc.</param>
+            <param name="operation">Type of operation: get, read, delete,
+            etc.</param>
+            <param name="description">Decription of operation.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay.Provider">
+            <summary>
+            Gets or sets service provider: Microsoft Key Vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay.Resource">
+            <summary>
+            Gets or sets resource on which the operation is performed etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay.Operation">
+            <summary>
+            Gets or sets type of operation: get, read, delete, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.OperationDisplay.Description">
+            <summary>
+            Gets or sets decription of operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Page`1">
+            <summary>
+            Defines a page in Azure responses.
+            </summary>
+            <typeparam name="T">Type of the page content items</typeparam>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Page`1.NextPageLink">
+            <summary>
+            Gets the link to the next page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Page`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>A an enumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Page`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>A an enumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions">
+            <summary>
+            Permissions the identity has for keys, secrets, certificates and
+            storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions.#ctor">
+            <summary>
+            Initializes a new instance of the Permissions class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions.#ctor(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Initializes a new instance of the Permissions class.
+            </summary>
+            <param name="keys">Permissions to keys</param>
+            <param name="secrets">Permissions to secrets</param>
+            <param name="certificates">Permissions to certificates</param>
+            <param name="storage">Permissions to storage accounts</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions.Keys">
+            <summary>
+            Gets or sets permissions to keys
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions.Secrets">
+            <summary>
+            Gets or sets permissions to secrets
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions.Certificates">
+            <summary>
+            Gets or sets permissions to certificates
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Permissions.Storage">
+            <summary>
+            Gets or sets permissions to storage accounts
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Reason">
+            <summary>
+            Defines values for Reason.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource">
+            <summary>
+            Key Vault resource
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.#ctor">
+            <summary>
+            Initializes a new instance of the Resource class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.#ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the Resource class.
+            </summary>
+            <param name="location">The supported Azure location where the key
+            vault should be created.</param>
+            <param name="id">The Azure Resource Manager resource ID for the key
+            vault.</param>
+            <param name="name">The name of the key vault.</param>
+            <param name="type">The resource type of the key vault.</param>
+            <param name="tags">The tags that will be assigned to the key vault.
+            </param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.Id">
+            <summary>
+            Gets the Azure Resource Manager resource ID for the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.Name">
+            <summary>
+            Gets the name of the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.Type">
+            <summary>
+            Gets the resource type of the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.Location">
+            <summary>
+            Gets or sets the supported Azure location where the key vault
+            should be created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.Tags">
+            <summary>
+            Gets or sets the tags that will be assigned to the key vault.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Resource.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.SecretPermissions">
+            <summary>
+            Defines values for SecretPermissions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.ServiceSpecification">
+            <summary>
+            One property of operation, include log specifications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.ServiceSpecification.#ctor">
+            <summary>
+            Initializes a new instance of the ServiceSpecification class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.ServiceSpecification.#ctor(System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.LogSpecification})">
+            <summary>
+            Initializes a new instance of the ServiceSpecification class.
+            </summary>
+            <param name="logSpecifications">Log specifications of
+            operation.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.ServiceSpecification.LogSpecifications">
+            <summary>
+            Gets or sets log specifications of operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku">
+            <summary>
+            SKU details
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku.#ctor">
+            <summary>
+            Initializes a new instance of the Sku class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.SkuName)">
+            <summary>
+            Initializes a new instance of the Sku class.
+            </summary>
+            <param name="name">SKU name to specify whether the key vault is a
+            standard vault or a premium vault. Possible values include:
+            'standard', 'premium'</param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku.#cctor">
+            <summary>
+            Static constructor for Sku class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku.Name">
+            <summary>
+            Gets or sets SKU name to specify whether the key vault is a
+            standard vault or a premium vault. Possible values include:
+            'standard', 'premium'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku.Family">
+            <summary>
+            SKU family name
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.SkuName">
+            <summary>
+            Defines values for SkuName.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.StoragePermissions">
+            <summary>
+            Defines values for StoragePermissions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Vault">
+            <summary>
+            Resource information with extended details.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Vault.#ctor">
+            <summary>
+            Initializes a new instance of the Vault class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Vault.#ctor(System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the Vault class.
+            </summary>
+            <param name="location">The supported Azure location where the key
+            vault should be created.</param>
+            <param name="properties">Properties of the vault</param>
+            <param name="id">The Azure Resource Manager resource ID for the key
+            vault.</param>
+            <param name="name">The name of the key vault.</param>
+            <param name="type">The resource type of the key vault.</param>
+            <param name="tags">The tags that will be assigned to the key vault.
+            </param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Vault.Properties">
+            <summary>
+            Gets or sets properties of the vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Vault.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters">
+            <summary>
+            Parameters for updating the access policy in a vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.#ctor">
+            <summary>
+            Initializes a new instance of the VaultAccessPolicyParameters
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyProperties,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the VaultAccessPolicyParameters
+            class.
+            </summary>
+            <param name="properties">Properties of the access policy</param>
+            <param name="id">The resource id of the access policy.</param>
+            <param name="name">The resource name of the access policy.</param>
+            <param name="type">The resource name of the access policy.</param>
+            <param name="location">The resource type of the the access
+            policy.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.Id">
+            <summary>
+            Gets the resource id of the access policy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.Name">
+            <summary>
+            Gets the resource name of the access policy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.Type">
+            <summary>
+            Gets the resource name of the access policy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.Location">
+            <summary>
+            Gets the resource type of the the access policy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.Properties">
+            <summary>
+            Gets or sets properties of the access policy
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyProperties">
+            <summary>
+            Properties of the vault access policy
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyProperties.#ctor">
+            <summary>
+            Initializes a new instance of the VaultAccessPolicyProperties
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyProperties.#ctor(System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry})">
+            <summary>
+            Initializes a new instance of the VaultAccessPolicyProperties
+            class.
+            </summary>
+            <param name="accessPolicies">An array of 0 to 16 identities that
+            have access to the key vault. All identities in the array must use
+            the same tenant ID as the key vault's tenant ID.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyProperties.AccessPolicies">
+            <summary>
+            Gets or sets an array of 0 to 16 identities that have access to the
+            key vault. All identities in the array must use the same tenant ID
+            as the key vault's tenant ID.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyProperties.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters">
+            <summary>
+            The parameters used to check the availabity of the vault name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters.#ctor">
+            <summary>
+            Initializes a new instance of the
+            VaultCheckNameAvailabilityParameters class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the
+            VaultCheckNameAvailabilityParameters class.
+            </summary>
+            <param name="name">The vault name.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters.#cctor">
+            <summary>
+            Static constructor for VaultCheckNameAvailabilityParameters class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters.Name">
+            <summary>
+            Gets or sets the vault name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters.Type">
+            <summary>
+            The type of resource, Microsoft.KeyVault/vaults
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters">
+            <summary>
+            Parameters for creating or updating a vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters.#ctor">
+            <summary>
+            Initializes a new instance of the VaultCreateOrUpdateParameters
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters.#ctor(System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the VaultCreateOrUpdateParameters
+            class.
+            </summary>
+            <param name="location">The supported Azure location where the key
+            vault should be created.</param>
+            <param name="properties">Properties of the vault</param>
+            <param name="tags">The tags that will be assigned to the key
+            vault.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters.Location">
+            <summary>
+            Gets or sets the supported Azure location where the key vault
+            should be created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters.Tags">
+            <summary>
+            Gets or sets the tags that will be assigned to the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters.Properties">
+            <summary>
+            Gets or sets properties of the vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters">
+            <summary>
+            Parameters for creating or updating a vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters.#ctor">
+            <summary>
+            Initializes a new instance of the VaultPatchParameters class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters.#ctor(System.Collections.Generic.IDictionary{System.String,System.String},Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties)">
+            <summary>
+            Initializes a new instance of the VaultPatchParameters class.
+            </summary>
+            <param name="tags">The tags that will be assigned to the key vault.
+            </param>
+            <param name="properties">Properties of the vault</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters.Tags">
+            <summary>
+            Gets or sets the tags that will be assigned to the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters.Properties">
+            <summary>
+            Gets or sets properties of the vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties">
+            <summary>
+            Properties of the vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.#ctor">
+            <summary>
+            Initializes a new instance of the VaultPatchProperties class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.#ctor(System.Nullable{System.Guid},Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku,System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CreateMode},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the VaultPatchProperties class.
+            </summary>
+            <param name="tenantId">The Azure Active Directory tenant ID that
+            should be used for authenticating requests to the key
+            vault.</param>
+            <param name="sku">SKU details</param>
+            <param name="accessPolicies">An array of 0 to 16 identities that
+            have access to the key vault. All identities in the array must use
+            the same tenant ID as the key vault's tenant ID.</param>
+            <param name="enabledForDeployment">Property to specify whether
+            Azure Virtual Machines are permitted to retrieve certificates
+            stored as secrets from the key vault.</param>
+            <param name="enabledForDiskEncryption">Property to specify whether
+            Azure Disk Encryption is permitted to retrieve secrets from the
+            vault and unwrap keys.</param>
+            <param name="enabledForTemplateDeployment">Property to specify
+            whether Azure Resource Manager is permitted to retrieve secrets
+            from the key vault.</param>
+            <param name="enableSoftDelete">Property specifying whether
+            recoverable deletion ('soft' delete) is enabled for this key vault.
+            The property may not be set to false.</param>
+            <param name="createMode">The vault's create mode to indicate
+            whether the vault need to be recovered or not. Possible values
+            include: 'recover', 'default'</param>
+            <param name="enablePurgeProtection">Property specifying whether
+            protection against purge is enabled for this vault; it is only
+            effective if soft delete is also enabled. Once activated, the
+            property may no longer be reset to false.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.TenantId">
+            <summary>
+            Gets or sets the Azure Active Directory tenant ID that should be
+            used for authenticating requests to the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.Sku">
+            <summary>
+            Gets or sets SKU details
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.AccessPolicies">
+            <summary>
+            Gets or sets an array of 0 to 16 identities that have access to the
+            key vault. All identities in the array must use the same tenant ID
+            as the key vault's tenant ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.EnabledForDeployment">
+            <summary>
+            Gets or sets property to specify whether Azure Virtual Machines are
+            permitted to retrieve certificates stored as secrets from the key
+            vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.EnabledForDiskEncryption">
+            <summary>
+            Gets or sets property to specify whether Azure Disk Encryption is
+            permitted to retrieve secrets from the vault and unwrap keys.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.EnabledForTemplateDeployment">
+            <summary>
+            Gets or sets property to specify whether Azure Resource Manager is
+            permitted to retrieve secrets from the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.EnableSoftDelete">
+            <summary>
+            Gets or sets property specifying whether recoverable deletion
+            ('soft' delete) is enabled for this key vault. The property may not
+            be set to false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.CreateMode">
+            <summary>
+            Gets or sets the vault's create mode to indicate whether the vault
+            need to be recovered or not. Possible values include: 'recover',
+            'default'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.EnablePurgeProtection">
+            <summary>
+            Gets or sets property specifying whether protection against purge
+            is enabled for this vault; it is only effective if soft delete is
+            also enabled. Once activated, the property may no longer be reset
+            to false.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchProperties.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties">
+            <summary>
+            Properties of the vault
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.#ctor">
+            <summary>
+            Initializes a new instance of the VaultProperties class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.#ctor(System.Guid,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.Sku,System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyEntry},System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.CreateMode},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the VaultProperties class.
+            </summary>
+            <param name="tenantId">The Azure Active Directory tenant ID that
+            should be used for authenticating requests to the key
+            vault.</param>
+            <param name="sku">SKU details</param>
+            <param name="accessPolicies">An array of 0 to 16 identities that
+            have access to the key vault. All identities in the array must use
+            the same tenant ID as the key vault's tenant ID.</param>
+            <param name="vaultUri">The URI of the vault for performing
+            operations on keys and secrets.</param>
+            <param name="enabledForDeployment">Property to specify whether
+            Azure Virtual Machines are permitted to retrieve certificates
+            stored as secrets from the key vault.</param>
+            <param name="enabledForDiskEncryption">Property to specify whether
+            Azure Disk Encryption is permitted to retrieve secrets from the
+            vault and unwrap keys.</param>
+            <param name="enabledForTemplateDeployment">Property to specify
+            whether Azure Resource Manager is permitted to retrieve secrets
+            from the key vault.</param>
+            <param name="enableSoftDelete">Property specifying whether
+            recoverable deletion is enabled for this key vault. Setting this
+            property to true activates the soft delete feature, whereby vaults
+            or vault entities can be recovered after deletion. Enabling this
+            functionality is irreversible - that is, the property does not
+            accept false as its value.</param>
+            <param name="createMode">The vault's create mode to indicate
+            whether the vault need to be recovered or not. Possible values
+            include: 'recover', 'default'</param>
+            <param name="enablePurgeProtection">Property specifying whether
+            protection against purge is enabled for this vault. Setting this
+            property to true activates protection against purge for this vault
+            and its content - only the Key Vault service may initiate a hard,
+            irrecoverable deletion. The setting is effective only if soft
+            delete is also enabled. Enabling this functionality is irreversible
+            - that is, the property does not accept false as its value.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.TenantId">
+            <summary>
+            Gets or sets the Azure Active Directory tenant ID that should be
+            used for authenticating requests to the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.Sku">
+            <summary>
+            Gets or sets SKU details
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.AccessPolicies">
+            <summary>
+            Gets or sets an array of 0 to 16 identities that have access to the
+            key vault. All identities in the array must use the same tenant ID
+            as the key vault's tenant ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.VaultUri">
+            <summary>
+            Gets or sets the URI of the vault for performing operations on keys
+            and secrets.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.EnabledForDeployment">
+            <summary>
+            Gets or sets property to specify whether Azure Virtual Machines are
+            permitted to retrieve certificates stored as secrets from the key
+            vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.EnabledForDiskEncryption">
+            <summary>
+            Gets or sets property to specify whether Azure Disk Encryption is
+            permitted to retrieve secrets from the vault and unwrap keys.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.EnabledForTemplateDeployment">
+            <summary>
+            Gets or sets property to specify whether Azure Resource Manager is
+            permitted to retrieve secrets from the key vault.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.EnableSoftDelete">
+            <summary>
+            Gets or sets property specifying whether recoverable deletion is
+            enabled for this key vault. Setting this property to true activates
+            the soft delete feature, whereby vaults or vault entities can be
+            recovered after deletion. Enabling this functionality is
+            irreversible - that is, the property does not accept false as its
+            value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.CreateMode">
+            <summary>
+            Gets or sets the vault's create mode to indicate whether the vault
+            need to be recovered or not. Possible values include: 'recover',
+            'default'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.EnablePurgeProtection">
+            <summary>
+            Gets or sets property specifying whether protection against purge
+            is enabled for this vault. Setting this property to true activates
+            protection against purge for this vault and its content - only the
+            Key Vault service may initiate a hard, irrecoverable deletion. The
+            setting is effective only if soft delete is also enabled. Enabling
+            this functionality is irreversible - that is, the property does not
+            accept false as its value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultProperties.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Operations">
+            <summary>
+            Operations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Operations.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient)">
+            <summary>
+            Initializes a new instance of the Operations class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Operations.Client">
+            <summary>
+            Gets a reference to the KeyVaultManagementClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Operations.ListWithHttpMessagesAsync(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Operations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.OperationsExtensions">
+            <summary>
+            Extension methods for Operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.OperationsExtensions.List(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.OperationsExtensions.ListAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations,System.Threading.CancellationToken)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.OperationsExtensions.ListNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations,System.String)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.OperationsExtensions.ListNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Lists all of the available Key Vault Rest API operations.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations">
+            <summary>
+            VaultsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.KeyVaultManagementClient)">
+            <summary>
+            Initializes a new instance of the VaultsOperations class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.Client">
+            <summary>
+            Gets a reference to the KeyVaultManagementClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.CreateOrUpdateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Create or update a key vault in the specified subscription.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to create or update the vault
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.UpdateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Update a key vault in the specified subscription.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to patch the vault
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.DeleteWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified Azure key vault.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault to delete
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.GetWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets the specified Azure key vault.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.UpdateAccessPolicyWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyUpdateKind,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Update access policies in a key vault in the specified subscription.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='operationKind'>
+            Name of the operation. Possible values include: 'add', 'replace', 'remove'
+            </param>
+            <param name='parameters'>
+            Access policy to merge into the vault
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListByResourceGroupWithHttpMessagesAsync(System.String,System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription and within the specified resource group.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListBySubscriptionWithHttpMessagesAsync(System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListDeletedWithHttpMessagesAsync(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.GetDeletedWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets the deleted Azure key vault.
+            </summary>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='location'>
+            The location of the deleted vault.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.PurgeDeletedWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted Azure key
+            vault.
+            </summary>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListWithHttpMessagesAsync(System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.CheckNameAvailabilityWithHttpMessagesAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Checks that the vault name is valid and is not already in use.
+            </summary>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.BeginPurgeDeletedWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted Azure key
+            vault.
+            </summary>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListByResourceGroupNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription and within the specified resource group.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListBySubscriptionNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListDeletedNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions">
+            <summary>
+            Extension methods for VaultsOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.CreateOrUpdate(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters)">
+            <summary>
+            Create or update a key vault in the specified subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to create or update the vault
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.CreateOrUpdateAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCreateOrUpdateParameters,System.Threading.CancellationToken)">
+            <summary>
+            Create or update a key vault in the specified subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to create or update the vault
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.Update(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters)">
+            <summary>
+            Update a key vault in the specified subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to patch the vault
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.UpdateAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultPatchParameters,System.Threading.CancellationToken)">
+            <summary>
+            Update a key vault in the specified subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the server belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='parameters'>
+            Parameters to patch the vault
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.Delete(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String)">
+            <summary>
+            Deletes the specified Azure key vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault to delete
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.DeleteAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified Azure key vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault to delete
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.Get(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String)">
+            <summary>
+            Gets the specified Azure key vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.GetAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the specified Azure key vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.UpdateAccessPolicy(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyUpdateKind,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters)">
+            <summary>
+            Update access policies in a key vault in the specified subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='operationKind'>
+            Name of the operation. Possible values include: 'add', 'replace', 'remove'
+            </param>
+            <param name='parameters'>
+            Access policy to merge into the vault
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.UpdateAccessPolicyAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.AccessPolicyUpdateKind,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultAccessPolicyParameters,System.Threading.CancellationToken)">
+            <summary>
+            Update access policies in a key vault in the specified subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='vaultName'>
+            Name of the vault
+            </param>
+            <param name='operationKind'>
+            Name of the operation. Possible values include: 'add', 'replace', 'remove'
+            </param>
+            <param name='parameters'>
+            Access policy to merge into the vault
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListByResourceGroup(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.Nullable{System.Int32})">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription and within the specified resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListByResourceGroupAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription and within the specified resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the Resource Group to which the vault belongs.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListBySubscription(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.Nullable{System.Int32})">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListBySubscriptionAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListDeleted(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListDeletedAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.Threading.CancellationToken)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.GetDeleted(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String)">
+            <summary>
+            Gets the deleted Azure key vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='location'>
+            The location of the deleted vault.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.GetDeletedAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the deleted Azure key vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='location'>
+            The location of the deleted vault.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.PurgeDeleted(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted Azure key
+            vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.PurgeDeletedAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted Azure key
+            vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.List(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.Nullable{System.Int32})">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='top'>
+            Maximum number of results to return.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.CheckNameAvailability(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters)">
+            <summary>
+            Checks that the vault name is valid and is not already in use.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.CheckNameAvailabilityAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.Models.VaultCheckNameAvailabilityParameters,System.Threading.CancellationToken)">
+            <summary>
+            Checks that the vault name is valid and is not already in use.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the vault.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.BeginPurgeDeleted(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted Azure key
+            vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.BeginPurgeDeletedAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes the specified vault. aka Purges the deleted Azure key
+            vault.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='vaultName'>
+            The name of the soft-deleted vault.
+            </param>
+            <param name='location'>
+            The location of the soft-deleted vault.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListByResourceGroupNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription and within the specified resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListByResourceGroupNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription and within the specified resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListBySubscriptionNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListBySubscriptionNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListDeletedNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListDeletedNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets information about the deleted vaults in a subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.VaultsOperationsExtensions.ListNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.KeyVault.IVaultsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            The List operation gets information about the vaults associated with the
+            subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+    </members>
+</doc>
