@@ -24,8 +24,9 @@ namespace sample
     {
         static void Main(string[] args)
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
+            const string subscriptionId = "23be27d7-0237-47fd-a012-9d691c6a3d83";
+            const string location = "redmond";
+            var baseUri = new Uri("https://management.redmond.ext-n22r1002.masd.stbtest.microsoft.com/");
             var credentials = new CustomLoginCredentials();
 
             Console.WriteLine("New Azure VM!");
@@ -45,8 +46,9 @@ namespace sample
             //    WithSize(VirtualMachineSizeTypes.BasicA0).
             //    Create();
 
-            var networkclient = GetNetworkClient(credentials, subscriptionId);
-            var resourceGroupClient = GetResourceGroupClient(credentials, subscriptionId);
+            var networkclient = GetNetworkClient(baseUri, credentials, subscriptionId);
+            var resourceGroupClient = GetResourceGroupClient(baseUri, credentials, subscriptionId);
+            var computeClient = GetComputeClient(baseUri, credentials, subscriptionId);
 
             var rgname = "test-dotnet-rg2";
             var rg = resourceGroupClient.ResourceGroups.CreateOrUpdateWithHttpMessagesAsync(rgname, parameters: new stackresource.Models.ResourceGroup {
@@ -134,6 +136,13 @@ namespace sample
             {
                 Console.WriteLine("Could not create network interface");
             }
+
+            var vmName = "test-dotnet-vm";
+            //var vm = new stackcompute.Models.VirtualMachine
+            //{
+            //    Location: location,
+
+            //};
             //var stacknetworkclient = new stacknetwork.NetworkManagementClient(new CustomLoginCredentials());
             //stacknetworkclient.SubscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
 
@@ -181,19 +190,27 @@ namespace sample
             //Console.WriteLine("New VM on Profile");
         }
 
-        public static stacknetwork.NetworkManagementClient GetNetworkClient(CustomLoginCredentials credentials, string subscriotionId)
+        public static stacknetwork.NetworkManagementClient GetNetworkClient(Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
         {
-            var client = new stacknetwork.NetworkManagementClient(credentials);
+            var client = new stacknetwork.NetworkManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static stackresource.ResourceManagementClient GetResourceGroupClient(CustomLoginCredentials credentials, string subscriotionId)
-        {
-            var client = new stackresource.ResourceManagementClient(credentials);
+        public static stackresource.ResourceManagementClient GetResourceGroupClient(Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
+        { 
+            var client = new stackresource.ResourceManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
+
+        public static stackcompute.ComputeManagementClient GetComputeClient(Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
+        {
+            var client = new stackcompute.ComputeManagementClient(baseUri: baseUri, credentials: credentials);
+            client.SubscriptionId = subscriotionId;
+            return client;
+        }
+
     }
 
 
@@ -203,10 +220,10 @@ namespace sample
         public override void InitializeServiceClient<T>(ServiceClient<T> client)
         {
             var authenticationContext =
-                new AuthenticationContext("https://login.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47");
-            var credential = new ClientCredential(clientId: "ab94afd2-c018-4bca-ab14-68136f4a230b", clientSecret: "OY0MtvRzMi+ZvaUk9+uar0epzuodAPuk4Y4NtGQVlp4=");
+                new AuthenticationContext("https://login.windows.net/73103a66-894e-4622-8ca7-da73c5c00c0b");
+            var credential = new ClientCredential(clientId: "106a0cf8-a34c-41af-bfef-fe8a1c8652fd", clientSecret: "l8plqAxDsEKmr5M1PuW361NYy4MnGNHqdFbygddkhtQ=");
 
-            var result = authenticationContext.AcquireToken(resource: "https://management.core.windows.net/",
+            var result = authenticationContext.AcquireToken(resource: "https://management.azurestackci03.onmicrosoft.com/1b6c5003-5826-4804-87c1-1a04f2d65076",
                 clientCredential: credential);
 
             if (result == null)
