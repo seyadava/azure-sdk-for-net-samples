@@ -134,6 +134,30 @@
     <Reference Include="Microsoft.Azure.Management.Network.Fluent, Version=1.0.0.60, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Management.Network.Fluent.1.14.0\lib\net452\Microsoft.Azure.Management.Network.Fluent.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Authorization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Authorization.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Authorization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Compute, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Compute.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Compute.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.KeyVault, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.KeyVault.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.KeyVault.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Network, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Network.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Subscription, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Subscription.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Subscription.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Websites, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Websites.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Websites.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.0.9.0-preview\lib\net452\Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.dll</HintPath>
     </Reference>
