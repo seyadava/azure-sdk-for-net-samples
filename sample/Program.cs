@@ -6,13 +6,8 @@ using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Rest;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure;
-//using stackauth = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization;
-//using stackcompute = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Compute;
-//using stackresource = Microsoft.Azure.Management.Profiles.profile_2017_03_09.ResourceManager;
-//using stacknetwork = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Network;
-//using stackstorage = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Storage;
-using azurestack = Microsoft.Azure.Management.Profiles.profile_2017_03_09;
-using azurestack2 = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01;
+using profile2017 = Microsoft.Azure.Management.Profiles.profile_2017_03_09;
+using profile2018 = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01;
 using stackaut = Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
@@ -30,42 +25,34 @@ namespace sample
         {
             //const string subscriptionId = "23be27d7-0237-47fd-a012-9d691c6a3d83";
             const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            //const string location = "redmond";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.redmond.ext-n22r1002.masd.stbtest.microsoft.com/");
+            const string location = "redmond";
+            //const string location = "eastus";
+            var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
 
-            var credentials = new CustomLoginCredentials();
+            string servicePrincipalId = "";
+            string servicePrincipalSecret = "";
+            string azureEnvironmentResourceId = "";
+            string azureEnvironmentTenandId = "";
 
-            Console.WriteLine("New Azure VM!");
-
-            var myclient = new cp.ComputeManagementClient(credentials);
-            //var o = myclient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync()
+            var credentials = new CustomLoginCredentials(
+                servicePrincipalId: servicePrincipalId, 
+                servicePrincipalSecret: servicePrincipalSecret, 
+                azureEnvironmentResourceId: azureEnvironmentResourceId, 
+                azureEnvironmentTenandId: azureEnvironmentTenandId);
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
-            //var azure = Azure.Configure().Authenticate(credentials).WithDefaultSubscription();
-            //var vm = azure.VirtualMachines.
-            //    Define("newDotnetVm").
-            //    WithRegion("eastus").
-            //    WithNewResourceGroup("newtestdotnet").
-            //    WithNewPrimaryNetwork("10.0.0.0/20").
-            //    WithPrimaryPrivateIPAddressDynamic().
-            //    WithoutPrimaryPublicIPAddress().
-            //    WithPopularLinuxImage(KnownLinuxVirtualMachineImage.UbuntuServer16_04_Lts).
-            //    WithRootUsername("testuser").
-            //    WithRootPassword("!!123abc").
-            //    WithSize(VirtualMachineSizeTypes.BasicA0).
-            //    Create();
+
 
             var networkclient = GetNetworkClient(baseUri, credentialsFromFile, subscriptionId);
             var resourceGroupClient = GetResourceGroupClient(baseUri, credentialsFromFile, subscriptionId);
             var computeClient = GetComputeClient(baseUri, credentialsFromFile, subscriptionId);
             var storageClient = GetStorageClient(baseUri, credentialsFromFile, subscriptionId);
-
+            var subscriptionClient = GetSubscriptionClient(baseUri, credentials);
 
 
             var rgname = "test-dotnet-rg2";
             var rg = resourceGroupClient.ResourceGroups.CreateOrUpdateWithHttpMessagesAsync(
                 resourceGroupName: rgname,
-                parameters: new azurestack.ResourceManager.Models.ResourceGroup
+                parameters: new profile2017.ResourceManager.Models.ResourceGroup
                 {
                     Location = location
                 }).Result;
@@ -75,9 +62,14 @@ namespace sample
                 Console.WriteLine("Could not create resource group");
             }
 
+            var t = subscriptionClient.SubscriptionDefinitions.CreateWithHttpMessagesAsync("subs", new profile2018.Subscription.Models.SubscriptionDefinition
+            {
+                OfferType = 
+            })
+
             var publicIpName = "test-dotnet-publicIp";
             //var publicIp = new stacknetwork.Models.PublicIPAddress
-            var publicIp = new azurestack.Network.Models.PublicIPAddress
+            var publicIp = new profile2017.Network.Models.PublicIPAddress
             {
                 Location = location,
                 Tags = new Dictionary<string, string>
@@ -85,7 +77,7 @@ namespace sample
                     {"key", "value" }
                 },
                 //PublicIPAllocationMethod = stacknetwork.Models.IPAllocationMethod.Dynamic
-                PublicIPAllocationMethod = azurestack.Network.Models.IPAllocationMethod.Dynamic
+                PublicIPAllocationMethod = profile2017.Network.Models.IPAllocationMethod.Dynamic
             };
 
             var pip = networkclient.PublicIPAddresses.CreateOrUpdateWithHttpMessagesAsync(rgname, publicIpName, publicIp).Result;
@@ -97,19 +89,19 @@ namespace sample
             var vnetName = "test-dotnet-vnet";
             var subnetName = "subnet1";
             //var vnet = new stacknetwork.Models.VirtualNetwork
-            var vnet = new azurestack.Network.Models.VirtualNetwork
+            var vnet = new profile2017.Network.Models.VirtualNetwork
             {
                 Location = location,
                 //AddressSpace = new stacknetwork.Models.AddressSpace
-                AddressSpace = new azurestack.Network.Models.AddressSpace
+                AddressSpace = new profile2017.Network.Models.AddressSpace
                 {
                     AddressPrefixes = new List<string> { "10.0.0.0/16" }
                 },
                 //Subnets = new List<stacknetwork.Models.Subnet>
-                Subnets = new List<azurestack.Network.Models.Subnet>
+                Subnets = new List<profile2017.Network.Models.Subnet>
                 {
                     //new stacknetwork.Models.Subnet
-                    new azurestack.Network.Models.Subnet
+                    new profile2017.Network.Models.Subnet
                     {
                         Name = subnetName,
                         AddressPrefix = "10.0.0.0/24"
@@ -131,26 +123,26 @@ namespace sample
             var nicName = "test-dotnet-nic";
             var ipconfigName = "test-dotnet-ipconfig";
             //var nic = new stacknetwork.Models.NetworkInterface
-            var nic = new azurestack.Network.Models.NetworkInterface
+            var nic = new profile2017.Network.Models.NetworkInterface
             {
                 Location = location,
                 Tags = new Dictionary<string, string> { { "key", "value" } },
                 //IpConfigurations = new List<stacknetwork.Models.NetworkInterfaceIPConfiguration>
-                IpConfigurations = new List<azurestack.Network.Models.NetworkInterfaceIPConfiguration>
+                IpConfigurations = new List<profile2017.Network.Models.NetworkInterfaceIPConfiguration>
                 {
                     //new stacknetwork.Models.NetworkInterfaceIPConfiguration
-                    new azurestack.Network.Models.NetworkInterfaceIPConfiguration
+                    new profile2017.Network.Models.NetworkInterfaceIPConfiguration
                     {
                         Name = ipconfigName,
                         //PrivateIPAllocationMethod = stacknetwork.Models.IPAllocationMethod.Dynamic,
-                        PrivateIPAllocationMethod = azurestack.Network.Models.IPAllocationMethod.Dynamic,
+                        PrivateIPAllocationMethod = profile2017.Network.Models.IPAllocationMethod.Dynamic,
                         //PublicIPAddress = new stacknetwork.Models.PublicIPAddress
-                        PublicIPAddress = new azurestack.Network.Models.PublicIPAddress
+                        PublicIPAddress = new profile2017.Network.Models.PublicIPAddress
                         {
                             Id = getPublicIpAddressResponse.Id
                         },
                         //Subnet = new stacknetwork.Models.Subnet
-                        Subnet = new azurestack.Network.Models.Subnet
+                        Subnet = new profile2017.Network.Models.Subnet
                         {
                             Id = getSubnetResponse.Id
                         }
@@ -166,13 +158,13 @@ namespace sample
 
             var storageAccountName = "testdotnetsa";
             //var storageAccountParameters = new stackstorage.Models.StorageAccountCreateParameters
-            var storageAccountParameters = new azurestack.Storage.Models.StorageAccountCreateParameters
+            var storageAccountParameters = new profile2017.Storage.Models.StorageAccountCreateParameters
             {
                 Location = location,
                 //Kind = stackstorage.Models.Kind.Storage,
-                Kind = azurestack.Storage.Models.Kind.Storage,
+                Kind = profile2017.Storage.Models.Kind.Storage,
                 //Sku = new stackstorage.Models.Sku(stackstorage.Models.SkuName.StandardLRS)
-                Sku = new azurestack.Storage.Models.Sku(azurestack.Storage.Models.SkuName.StandardLRS)
+                Sku = new profile2017.Storage.Models.Sku(profile2017.Storage.Models.SkuName.StandardLRS)
             };
 
             var storageAccountResponse = storageClient.StorageAccounts.CreateWithHttpMessagesAsync(rgname, storageAccountName, storageAccountParameters).Result;
@@ -185,17 +177,17 @@ namespace sample
             var vhdURItemplate = "https://" + storageAccountName + ".blob.core.windows.net/vhds/" + vmName + ".vhd";
 
             //var vm = new stackcompute.Models.VirtualMachine
-            var vm = new azurestack.Compute.Models.VirtualMachine
+            var vm = new profile2017.Compute.Models.VirtualMachine
             {
                 Location = location,
                 //NetworkProfile = new stackcompute.Models.NetworkProfile
-                NetworkProfile = new azurestack.Compute.Models.NetworkProfile
+                NetworkProfile = new profile2017.Compute.Models.NetworkProfile
                 {
                     //NetworkInterfaces = new List<stackcompute.Models.NetworkInterfaceReference>
-                    NetworkInterfaces = new List<azurestack.Compute.Models.NetworkInterfaceReference>
+                    NetworkInterfaces = new List<profile2017.Compute.Models.NetworkInterfaceReference>
                     {
                         //new stackcompute.Models.NetworkInterfaceReference
-                        new azurestack.Compute.Models.NetworkInterfaceReference
+                        new profile2017.Compute.Models.NetworkInterfaceReference
                         {
                             Id = nicResponse.Body.Id,
                             Primary = true
@@ -203,10 +195,10 @@ namespace sample
                     }
                 },
                 //StorageProfile = new stackcompute.Models.StorageProfile
-                StorageProfile = new azurestack.Compute.Models.StorageProfile
+                StorageProfile = new profile2017.Compute.Models.StorageProfile
                 {
                     //ImageReference = new stackcompute.Models.ImageReference
-                    ImageReference = new azurestack.Compute.Models.ImageReference
+                    ImageReference = new profile2017.Compute.Models.ImageReference
                     {
                         Publisher = "Canonical",
                         Offer = "UbuntuServer",
@@ -214,39 +206,39 @@ namespace sample
                         Version = "latest"
                     },
                     //OsDisk = new stackcompute.Models.OSDisk
-                    OsDisk = new azurestack.Compute.Models.OSDisk
+                    OsDisk = new profile2017.Compute.Models.OSDisk
                     {
                         Name = "osDisk",
                         //Vhd = new stackcompute.Models.VirtualHardDisk
-                        Vhd = new azurestack.Compute.Models.VirtualHardDisk
+                        Vhd = new profile2017.Compute.Models.VirtualHardDisk
                         {
                             Uri = vhdURItemplate
                         },
                         //CreateOption = stackcompute.Models.DiskCreateOptionTypes.FromImage
-                        CreateOption = azurestack.Compute.Models.DiskCreateOptionTypes.FromImage
+                        CreateOption = profile2017.Compute.Models.DiskCreateOptionTypes.FromImage
                     }
                 },
                 //OsProfile = new stackcompute.Models.OSProfile
-                OsProfile = new azurestack.Compute.Models.OSProfile
+                OsProfile = new profile2017.Compute.Models.OSProfile
                 {
                     ComputerName = vmName,
                     AdminUsername = "useradmin",
                     AdminPassword = "!!123abc"
                 },
                 //HardwareProfile = new stackcompute.Models.HardwareProfile
-                HardwareProfile = new azurestack.Compute.Models.HardwareProfile
+                HardwareProfile = new profile2017.Compute.Models.HardwareProfile
                 {
                     VmSize = "Standard_A1"
                 }
             };
 
-            var DataDisks = new List<azurestack2.Compute.Models.DataDisk>
+            var DataDisks = new List<profile2018.Compute.Models.DataDisk>
                     {
-                        new azurestack2.Compute.Models.DataDisk
+                        new profile2018.Compute.Models.DataDisk
                         {
-                            CreateOption = azurestack2.Compute.Models.DiskCreateOptionTypes.Attach,
+                            CreateOption = profile2018.Compute.Models.DiskCreateOptionTypes.Attach,
                             Lun = 0,
-                            ManagedDisk = new azurestack2.Compute.Models.ManagedDiskParameters
+                            ManagedDisk = new profile2018.Compute.Models.ManagedDiskParameters
                             {
                                 Id = "tt"
                             }
@@ -305,112 +297,76 @@ namespace sample
         }
 
         //public static stacknetwork.NetworkManagementClient GetNetworkClient(Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
-        public static azurestack.Network.NetworkManagementClient GetNetworkClient
+        public static profile2017.Network.NetworkManagementClient GetNetworkClient
             (Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
         {
             //var client = new stacknetwork.NetworkManagementClient(baseUri: baseUri, credentials: credentials);
-            var client = new azurestack.Network.NetworkManagementClient(baseUri: baseUri, credentials: credentials);
+            var client = new profile2017.Network.NetworkManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.Network.NetworkManagementClient GetNetworkClient
+        public static profile2017.Network.NetworkManagementClient GetNetworkClient
             (Uri baseUri, AzureCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.Network.NetworkManagementClient(credentials: credentials);
+            var client = new profile2017.Network.NetworkManagementClient(credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.ResourceManager.ResourceManagementClient GetResourceGroupClient
+        public static profile2017.ResourceManager.ResourceManagementClient GetResourceGroupClient
             (Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: credentials);
+            var client = new profile2017.ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.ResourceManager.ResourceManagementClient GetResourceGroupClient
+        public static profile2017.ResourceManager.ResourceManagementClient GetResourceGroupClient
             (Uri baseUri, AzureCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.ResourceManager.ResourceManagementClient(credentials: credentials);
+            var client = new profile2017.ResourceManager.ResourceManagementClient(credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.Compute.ComputeManagementClient GetComputeClient
+        public static profile2017.Compute.ComputeManagementClient GetComputeClient
             (Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.Compute.ComputeManagementClient(baseUri: baseUri, credentials: credentials);
+            var client = new profile2017.Compute.ComputeManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.Compute.ComputeManagementClient GetComputeClient
+        public static profile2017.Compute.ComputeManagementClient GetComputeClient
             (Uri baseUri, AzureCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.Compute.ComputeManagementClient(credentials: credentials);
+            var client = new profile2017.Compute.ComputeManagementClient(credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.Storage.StorageManagementClient GetStorageClient
+        public static profile2017.Storage.StorageManagementClient GetStorageClient
             (Uri baseUri, CustomLoginCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.Storage.StorageManagementClient(baseUri: baseUri, credentials: credentials);
+            var client = new profile2017.Storage.StorageManagementClient(baseUri: baseUri, credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
 
-        public static azurestack.Storage.StorageManagementClient GetStorageClient
+        public static profile2017.Storage.StorageManagementClient GetStorageClient
             (Uri baseUri, AzureCredentials credentials, string subscriotionId)
         {
-            var client = new azurestack.Storage.StorageManagementClient(credentials: credentials);
+            var client = new profile2017.Storage.StorageManagementClient(credentials: credentials);
             client.SubscriptionId = subscriotionId;
             return client;
         }
-    }
 
-
-    public class CustomLoginCredentials : ServiceClientCredentials
-    {
-        private string AuthenticationToken { get; set; }
-        public override void InitializeServiceClient<T>(ServiceClient<T> client)
+        public static profile2018.Subscription.SubscriptionDefinitionsClient GetSubscriptionClient
+            (Uri baseUri, CustomLoginCredentials credentials)
         {
-            var authenticationContext =
-                new AuthenticationContext("https://login.windows.net/73103a66-894e-4622-8ca7-da73c5c00c0b");
-            var credential = new ClientCredential(clientId: "106a0cf8-a34c-41af-bfef-fe8a1c8652fd", clientSecret: "l8plqAxDsEKmr5M1PuW361NYy4MnGNHqdFbygddkhtQ=");
-
-            var result = authenticationContext.AcquireToken(resource: "https://management.azurestackci03.onmicrosoft.com/1b6c5003-5826-4804-87c1-1a04f2d65076",
-                clientCredential: credential);
-
-            if (result == null)
-            {
-                throw new InvalidOperationException("Failed to obtain the JWT token");
-            }
-
-            AuthenticationToken = result.AccessToken;
-        }
-        public override async Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            if (request == null)
-            {
-                throw new ArgumentNullException("request");
-            }
-
-            if (AuthenticationToken == null)
-            {
-                throw new InvalidOperationException("Token Provider Cannot Be Null");
-            }
-
-
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", AuthenticationToken);
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //request.Version = new Version(apiVersion);
-            await base.ProcessHttpRequestAsync(request, cancellationToken);
-
+            var client = new profile2018.Subscription.SubscriptionDefinitionsClient(baseUri: baseUri, credentials: credentials);
+            return client;
         }
     }
 }
