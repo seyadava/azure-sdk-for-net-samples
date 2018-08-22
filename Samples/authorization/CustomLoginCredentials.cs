@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 
 
-namespace sample
+namespace Authorization
 {
     public class CustomLoginCredentials : ServiceClientCredentials
     {
@@ -24,7 +24,7 @@ namespace sample
             clientId = servicePrincipalId;
             clientSecret = servicePrincipalSecret;
             resourceId = azureEnvironmentResourceId;
-            tenantId = azureEnvironmentResourceId;
+            tenantId = azureEnvironmentTenandId;
         }
 
 
@@ -35,8 +35,8 @@ namespace sample
                 new AuthenticationContext(String.Format(authenticationBase, tenantId));
             var credential = new ClientCredential(clientId, clientSecret);
 
-            var result = authenticationContext.AcquireToken(resource: resourceId,
-                clientCredential: credential);
+            var result = authenticationContext.AcquireTokenAsync(resource: resourceId,
+                clientCredential: credential).Result;
 
             if (result == null)
             {
@@ -67,5 +67,4 @@ namespace sample
 
         }
     }
-}
 }
