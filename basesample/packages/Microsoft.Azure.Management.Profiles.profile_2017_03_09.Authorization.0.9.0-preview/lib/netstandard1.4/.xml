@@ -1,0 +1,3311 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient">
+            <summary>
+            Role based access control provides you a way to apply granular level
+            policy administration down to individual resources or resource groups.
+            These operations enable you to manage role definitions and role
+            assignments. A role definition describes the set of actions that can be
+            performed on resources. A role assignment grants access to Azure Active
+            Directory users.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.BaseUri">
+            <summary>
+            The base URI of the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.SerializationSettings">
+            <summary>
+            Gets or sets json serialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.DeserializationSettings">
+            <summary>
+            Gets or sets json deserialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.Credentials">
+            <summary>
+            Credentials needed for the client to connect to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.SubscriptionId">
+            <summary>
+            The ID of the target subscription.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.ApiVersion">
+            <summary>
+            The API version to use for the operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.AcceptLanguage">
+            <summary>
+            Gets or sets the preferred language for the response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.LongRunningOperationRetryTimeout">
+            <summary>
+            Gets or sets the retry timeout in seconds for Long Running Operations.
+            Default value is 30.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.GenerateClientRequestId">
+            <summary>
+            When set to true a unique x-ms-client-request-id value is generated and
+            included in each request. Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.Permissions">
+            <summary>
+            Gets the IPermissionsOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.ProviderOperationsMetadata">
+            <summary>
+            Gets the IProviderOperationsMetadataOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.RoleAssignments">
+            <summary>
+            Gets the IRoleAssignmentsOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.RoleDefinitions">
+            <summary>
+            Gets the IRoleDefinitionsOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(System.Uri,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(System.Uri,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(System.Uri,Microsoft.Rest.ServiceClientCredentials,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.#ctor(System.Uri,Microsoft.Rest.ServiceClientCredentials,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the AuthorizationManagementClient class.
+            </summary>
+            <param name='baseUri'>
+            Optional. The base URI of the service.
+            </param>
+            <param name='credentials'>
+            Required. Credentials needed for the client to connect to Azure.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient.Initialize">
+            <summary>
+            Initializes client properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient">
+            <summary>
+            Role based access control provides you a way to apply granular level
+            policy administration down to individual resources or resource groups.
+            These operations enable you to manage role definitions and role
+            assignments. A role definition describes the set of actions that can be
+            performed on resources. A role assignment grants access to Azure Active
+            Directory users.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.BaseUri">
+            <summary>
+            The base URI of the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.SerializationSettings">
+            <summary>
+            Gets or sets json serialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.DeserializationSettings">
+            <summary>
+            Gets or sets json deserialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.Credentials">
+            <summary>
+            Credentials needed for the client to connect to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.SubscriptionId">
+            <summary>
+            The ID of the target subscription.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.ApiVersion">
+            <summary>
+            The API version to use for the operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.AcceptLanguage">
+            <summary>
+            Gets or sets the preferred language for the response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.LongRunningOperationRetryTimeout">
+            <summary>
+            Gets or sets the retry timeout in seconds for Long Running
+            Operations. Default value is 30.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.GenerateClientRequestId">
+            <summary>
+            When set to true a unique x-ms-client-request-id value is generated
+            and included in each request. Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.Permissions">
+            <summary>
+            Gets the IPermissionsOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.ProviderOperationsMetadata">
+            <summary>
+            Gets the IProviderOperationsMetadataOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.RoleAssignments">
+            <summary>
+            Gets the IRoleAssignmentsOperations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IAuthorizationManagementClient.RoleDefinitions">
+            <summary>
+            Gets the IRoleDefinitionsOperations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations">
+            <summary>
+            PermissionsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations.ListForResourceGroupWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group to get the permissions for. The name
+            is case insensitive.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations.ListForResourceWithHttpMessagesAsync(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group containing the resource. The name is
+            case insensitive.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get the permissions for.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations.ListForResourceGroupNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations.ListForResourceNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations">
+            <summary>
+            ProviderOperationsMetadataOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations.GetWithHttpMessagesAsync(System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for the specified resource
+            provider.
+            </summary>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='apiVersion'>
+            The API version to use for the operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations.ListWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='apiVersion'>
+            The API version to use for this operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations">
+            <summary>
+            RoleAssignmentsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListForResourceWithHttpMessagesAsync(System.String,System.String,System.String,System.String,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get role assignments for.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListForResourceGroupWithHttpMessagesAsync(System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.DeleteWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignment to delete.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to delete.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.CreateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Creates a role assignment.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignment to create. The scope can be any
+            REST resource instance. For example, use
+            '/subscriptions/{subscription-id}/' for a subscription,
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}'
+            for a resource group, and
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider}/{resource-type}/{resource-name}'
+            for a resource.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to create. It can be any valid
+            GUID.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.GetWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get the specified role assignment.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignment.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to get.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.DeleteByIdWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.CreateByIdWithHttpMessagesAsync(System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Creates a role assignment by ID.
+            </summary>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.GetByIdWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets a role assignment by ID.
+            </summary>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListWithHttpMessagesAsync(Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListForScopeWithHttpMessagesAsync(System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignments.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListForResourceNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListForResourceGroupNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations.ListForScopeNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations">
+            <summary>
+            RoleDefinitionsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations.DeleteWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role definition.
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition to delete.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations.GetWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get role definition by name (GUID).
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations.CreateOrUpdateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Creates or updates a role definition.
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='roleDefinition'>
+            The values for the role definition.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations.ListWithHttpMessagesAsync(System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations.GetByIdWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets a role definition by ID.
+            </summary>
+            <param name='roleDefinitionId'>
+            The fully qualified role definition ID. Use the format,
+            /subscriptions/{guid}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+            for subscription level role definitions, or
+            /providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+            for tenant level role definitions.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Page`1">
+            <summary>
+            Defines a page in Azure responses.
+            </summary>
+            <typeparam name="T">Type of the page content items</typeparam>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Page`1.NextPageLink">
+            <summary>
+            Gets the link to the next page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Page`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>A an enumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Page`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>A an enumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Permission">
+            <summary>
+            Role definition permissions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Permission.#ctor">
+            <summary>
+            Initializes a new instance of the Permission class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Permission.#ctor(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Initializes a new instance of the Permission class.
+            </summary>
+            <param name="actions">Allowed actions.</param>
+            <param name="notActions">Denied actions.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Permission.Actions">
+            <summary>
+            Gets or sets allowed actions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Permission.NotActions">
+            <summary>
+            Gets or sets denied actions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation">
+            <summary>
+            Operation
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.#ctor">
+            <summary>
+            Initializes a new instance of the ProviderOperation class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.#ctor(System.String,System.String,System.String,System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the ProviderOperation class.
+            </summary>
+            <param name="name">The operation name.</param>
+            <param name="displayName">The operation display name.</param>
+            <param name="description">The operation description.</param>
+            <param name="origin">The operation origin.</param>
+            <param name="properties">The operation properties.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.Name">
+            <summary>
+            Gets or sets the operation name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.DisplayName">
+            <summary>
+            Gets or sets the operation display name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.Description">
+            <summary>
+            Gets or sets the operation description.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.Origin">
+            <summary>
+            Gets or sets the operation origin.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation.Properties">
+            <summary>
+            Gets or sets the operation properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata">
+            <summary>
+            Provider Operations metadata
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.#ctor">
+            <summary>
+            Initializes a new instance of the ProviderOperationsMetadata class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.#ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType},System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation})">
+            <summary>
+            Initializes a new instance of the ProviderOperationsMetadata class.
+            </summary>
+            <param name="id">The provider id.</param>
+            <param name="name">The provider name.</param>
+            <param name="type">The provider type.</param>
+            <param name="displayName">The provider display name.</param>
+            <param name="resourceTypes">The provider resource types</param>
+            <param name="operations">The provider operations.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.Id">
+            <summary>
+            Gets or sets the provider id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.Name">
+            <summary>
+            Gets or sets the provider name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.Type">
+            <summary>
+            Gets or sets the provider type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.DisplayName">
+            <summary>
+            Gets or sets the provider display name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.ResourceTypes">
+            <summary>
+            Gets or sets the provider resource types
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperationsMetadata.Operations">
+            <summary>
+            Gets or sets the provider operations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType">
+            <summary>
+            Resource Type
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType.#ctor">
+            <summary>
+            Initializes a new instance of the ResourceType class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType.#ctor(System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ProviderOperation})">
+            <summary>
+            Initializes a new instance of the ResourceType class.
+            </summary>
+            <param name="name">The resource type name.</param>
+            <param name="displayName">The resource type display name.</param>
+            <param name="operations">The resource type operations.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType.Name">
+            <summary>
+            Gets or sets the resource type name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType.DisplayName">
+            <summary>
+            Gets or sets the resource type display name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.ResourceType.Operations">
+            <summary>
+            Gets or sets the resource type operations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment">
+            <summary>
+            Role Assignments
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment.#ctor">
+            <summary>
+            Initializes a new instance of the RoleAssignment class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment.#ctor(System.String,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope)">
+            <summary>
+            Initializes a new instance of the RoleAssignment class.
+            </summary>
+            <param name="id">The role assignment ID.</param>
+            <param name="name">The role assignment name.</param>
+            <param name="type">The role assignment type.</param>
+            <param name="properties">Role assignment properties.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment.Id">
+            <summary>
+            Gets the role assignment ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment.Name">
+            <summary>
+            Gets the role assignment name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment.Type">
+            <summary>
+            Gets the role assignment type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignment.Properties">
+            <summary>
+            Gets or sets role assignment properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters">
+            <summary>
+            Role assignment create parameters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters.#ctor">
+            <summary>
+            Initializes a new instance of the RoleAssignmentCreateParameters
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentProperties)">
+            <summary>
+            Initializes a new instance of the RoleAssignmentCreateParameters
+            class.
+            </summary>
+            <param name="properties">Role assignment properties.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters.Properties">
+            <summary>
+            Gets or sets role assignment properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter">
+            <summary>
+            Role Assignments filter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter.#ctor">
+            <summary>
+            Initializes a new instance of the RoleAssignmentFilter class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the RoleAssignmentFilter class.
+            </summary>
+            <param name="principalId">Returns role assignment of the specific
+            principal.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter.PrincipalId">
+            <summary>
+            Gets or sets returns role assignment of the specific principal.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentProperties">
+            <summary>
+            Role assignment properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentProperties.#ctor">
+            <summary>
+            Initializes a new instance of the RoleAssignmentProperties class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentProperties.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the RoleAssignmentProperties class.
+            </summary>
+            <param name="roleDefinitionId">The role definition ID used in the
+            role assignment.</param>
+            <param name="principalId">The principal ID assigned to the role.
+            This maps to the ID inside the Active Directory. It can point to a
+            user, service principal, or security group.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentProperties.RoleDefinitionId">
+            <summary>
+            Gets or sets the role definition ID used in the role assignment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentProperties.PrincipalId">
+            <summary>
+            Gets or sets the principal ID assigned to the role. This maps to
+            the ID inside the Active Directory. It can point to a user, service
+            principal, or security group.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope">
+            <summary>
+            Role assignment properties with scope.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope.#ctor">
+            <summary>
+            Initializes a new instance of the RoleAssignmentPropertiesWithScope
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the RoleAssignmentPropertiesWithScope
+            class.
+            </summary>
+            <param name="scope">The role assignment scope.</param>
+            <param name="roleDefinitionId">The role definition ID.</param>
+            <param name="principalId">The principal ID.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope.Scope">
+            <summary>
+            Gets or sets the role assignment scope.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope.RoleDefinitionId">
+            <summary>
+            Gets or sets the role definition ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentPropertiesWithScope.PrincipalId">
+            <summary>
+            Gets or sets the principal ID.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition">
+            <summary>
+            Role definition.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition.#ctor">
+            <summary>
+            Initializes a new instance of the RoleDefinition class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition.#ctor(System.String,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties)">
+            <summary>
+            Initializes a new instance of the RoleDefinition class.
+            </summary>
+            <param name="id">The role definition ID.</param>
+            <param name="name">The role definition name.</param>
+            <param name="type">The role definition type.</param>
+            <param name="properties">Role definition properties.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition.Id">
+            <summary>
+            Gets the role definition ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition.Name">
+            <summary>
+            Gets the role definition name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition.Type">
+            <summary>
+            Gets the role definition type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition.Properties">
+            <summary>
+            Gets or sets role definition properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter">
+            <summary>
+            Role Definitions filter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter.#ctor">
+            <summary>
+            Initializes a new instance of the RoleDefinitionFilter class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the RoleDefinitionFilter class.
+            </summary>
+            <param name="roleName">Returns role definition with the specific
+            name.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter.RoleName">
+            <summary>
+            Gets or sets returns role definition with the specific name.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties">
+            <summary>
+            Role definition properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.#ctor">
+            <summary>
+            Initializes a new instance of the RoleDefinitionProperties class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.#ctor(System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.Permission},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Initializes a new instance of the RoleDefinitionProperties class.
+            </summary>
+            <param name="roleName">The role name.</param>
+            <param name="description">The role definition description.</param>
+            <param name="type">The role type.</param>
+            <param name="permissions">Role definition permissions.</param>
+            <param name="assignableScopes">Role definition assignable
+            scopes.</param>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.RoleName">
+            <summary>
+            Gets or sets the role name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.Description">
+            <summary>
+            Gets or sets the role definition description.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.Type">
+            <summary>
+            Gets or sets the role type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.Permissions">
+            <summary>
+            Gets or sets role definition permissions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionProperties.AssignableScopes">
+            <summary>
+            Gets or sets role definition assignable scopes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations">
+            <summary>
+            PermissionsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient)">
+            <summary>
+            Initializes a new instance of the PermissionsOperations class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations.Client">
+            <summary>
+            Gets a reference to the AuthorizationManagementClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations.ListForResourceGroupWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group to get the permissions for. The name is case
+            insensitive.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations.ListForResourceWithHttpMessagesAsync(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group containing the resource. The name is case
+            insensitive.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get the permissions for.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations.ListForResourceGroupNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperations.ListForResourceNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions">
+            <summary>
+            Extension methods for PermissionsOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceGroup(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group to get the permissions for. The name is case
+            insensitive.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceGroupAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group to get the permissions for. The name is case
+            insensitive.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResource(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group containing the resource. The name is case
+            insensitive.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get the permissions for.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group containing the resource. The name is case
+            insensitive.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get the permissions for.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceGroupNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceGroupNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.PermissionsOperationsExtensions.ListForResourceNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IPermissionsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets all permissions the caller has for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperations">
+            <summary>
+            ProviderOperationsMetadataOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperations.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient)">
+            <summary>
+            Initializes a new instance of the ProviderOperationsMetadataOperations class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperations.Client">
+            <summary>
+            Gets a reference to the AuthorizationManagementClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperations.GetWithHttpMessagesAsync(System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for the specified resource provider.
+            </summary>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='apiVersion'>
+            The API version to use for the operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperations.ListWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='apiVersion'>
+            The API version to use for this operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions">
+            <summary>
+            Extension methods for ProviderOperationsMetadataOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions.Get(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations,System.String,System.String,System.String)">
+            <summary>
+            Gets provider operations metadata for the specified resource provider.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='apiVersion'>
+            The API version to use for the operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions.GetAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for the specified resource provider.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='apiVersion'>
+            The API version to use for the operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions.List(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations,System.String,System.String)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='apiVersion'>
+            The API version to use for this operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions.ListAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='apiVersion'>
+            The API version to use for this operation.
+            </param>
+            <param name='expand'>
+            Specifies whether to expand the values.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions.ListNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations,System.String)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.ProviderOperationsMetadataOperationsExtensions.ListNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IProviderOperationsMetadataOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets provider operations metadata for all resource providers.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations">
+            <summary>
+            RoleAssignmentsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient)">
+            <summary>
+            Initializes a new instance of the RoleAssignmentsOperations class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.Client">
+            <summary>
+            Gets a reference to the AuthorizationManagementClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListForResourceWithHttpMessagesAsync(System.String,System.String,System.String,System.String,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get role assignments for.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListForResourceGroupWithHttpMessagesAsync(System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.DeleteWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignment to delete.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to delete.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.CreateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Creates a role assignment.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignment to create. The scope can be any REST
+            resource instance. For example, use '/subscriptions/{subscription-id}/' for
+            a subscription,
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for
+            a resource group, and
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider}/{resource-type}/{resource-name}'
+            for a resource.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to create. It can be any valid GUID.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.GetWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get the specified role assignment.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignment.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to get.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.DeleteByIdWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.CreateByIdWithHttpMessagesAsync(System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Creates a role assignment by ID.
+            </summary>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.GetByIdWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets a role assignment by ID.
+            </summary>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListWithHttpMessagesAsync(Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListForScopeWithHttpMessagesAsync(System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='scope'>
+            The scope of the role assignments.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListForResourceNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListForResourceGroupNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperations.ListForScopeNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions">
+            <summary>
+            Extension methods for RoleAssignmentsOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResource(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String,System.String,System.String,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter})">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get role assignments for.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String,System.String,System.String,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='resourceProviderNamespace'>
+            The namespace of the resource provider.
+            </param>
+            <param name='parentResourcePath'>
+            The parent resource identity.
+            </param>
+            <param name='resourceType'>
+            The resource type of the resource.
+            </param>
+            <param name='resourceName'>
+            The name of the resource to get role assignments for.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceGroup(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter})">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceGroupAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='resourceGroupName'>
+            The name of the resource group.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.Delete(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignment to delete.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to delete.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.DeleteAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignment to delete.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to delete.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.Create(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters)">
+            <summary>
+            Creates a role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignment to create. The scope can be any REST
+            resource instance. For example, use '/subscriptions/{subscription-id}/' for
+            a subscription,
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for
+            a resource group, and
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider}/{resource-type}/{resource-name}'
+            for a resource.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to create. It can be any valid GUID.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.CreateAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters,System.Threading.CancellationToken)">
+            <summary>
+            Creates a role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignment to create. The scope can be any REST
+            resource instance. For example, use '/subscriptions/{subscription-id}/' for
+            a subscription,
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for
+            a resource group, and
+            '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider}/{resource-type}/{resource-name}'
+            for a resource.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to create. It can be any valid GUID.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.Get(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String)">
+            <summary>
+            Get the specified role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignment.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to get.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.GetAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the specified role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignment.
+            </param>
+            <param name='roleAssignmentName'>
+            The name of the role assignment to get.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.DeleteById(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.DeleteByIdAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role assignment.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.CreateById(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters)">
+            <summary>
+            Creates a role assignment by ID.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.CreateByIdAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentCreateParameters,System.Threading.CancellationToken)">
+            <summary>
+            Creates a role assignment by ID.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='parameters'>
+            Parameters for the role assignment.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.GetById(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String)">
+            <summary>
+            Gets a role assignment by ID.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.GetByIdAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a role assignment by ID.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleAssignmentId'>
+            The fully qualified ID of the role assignment, including the scope,
+            resource name and resource type. Use the format,
+            /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            Example:
+            /subscriptions/{subId}/resourcegroups/{rgname}//providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.List(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter})">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Threading.CancellationToken)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForScope(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter})">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignments.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForScopeAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleAssignmentFilter},System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role assignments.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceGroupNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForResourceGroupNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a resource group.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets all role assignments for the subscription.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForScopeNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleAssignmentsOperationsExtensions.ListForScopeNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleAssignmentsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets role assignments for a scope.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations">
+            <summary>
+            RoleDefinitionsOperations operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.#ctor(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.AuthorizationManagementClient)">
+            <summary>
+            Initializes a new instance of the RoleDefinitionsOperations class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.Client">
+            <summary>
+            Gets a reference to the AuthorizationManagementClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.DeleteWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role definition.
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition to delete.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.GetWithHttpMessagesAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get role definition by name (GUID).
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.CreateOrUpdateWithHttpMessagesAsync(System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Creates or updates a role definition.
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='roleDefinition'>
+            The values for the role definition.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.ListWithHttpMessagesAsync(System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.GetByIdWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Gets a role definition by ID.
+            </summary>
+            <param name='roleDefinitionId'>
+            The fully qualified role definition ID. Use the format,
+            /subscriptions/{guid}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+            for subscription level role definitions, or
+            /providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId} for
+            tenant level role definitions.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperations.ListNextWithHttpMessagesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Rest.Azure.CloudException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions">
+            <summary>
+            Extension methods for RoleDefinitionsOperations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.Delete(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.String)">
+            <summary>
+            Deletes a role definition.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition to delete.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.DeleteAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role definition.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition to delete.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.Get(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.String)">
+            <summary>
+            Get role definition by name (GUID).
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.GetAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get role definition by name (GUID).
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.CreateOrUpdate(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition)">
+            <summary>
+            Creates or updates a role definition.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='roleDefinition'>
+            The values for the role definition.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.CreateOrUpdateAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.String,Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinition,System.Threading.CancellationToken)">
+            <summary>
+            Creates or updates a role definition.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='roleDefinitionId'>
+            The ID of the role definition.
+            </param>
+            <param name='roleDefinition'>
+            The values for the role definition.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.List(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter})">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.ListAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,Microsoft.Rest.Azure.OData.ODataQuery{Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.Models.RoleDefinitionFilter},System.Threading.CancellationToken)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='scope'>
+            The scope of the role definition.
+            </param>
+            <param name='odataQuery'>
+            OData parameters to apply to the operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.GetById(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String)">
+            <summary>
+            Gets a role definition by ID.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleDefinitionId'>
+            The fully qualified role definition ID. Use the format,
+            /subscriptions/{guid}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+            for subscription level role definitions, or
+            /providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId} for
+            tenant level role definitions.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.GetByIdAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a role definition by ID.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='roleDefinitionId'>
+            The fully qualified role definition ID. Use the format,
+            /subscriptions/{guid}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+            for subscription level role definitions, or
+            /providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId} for
+            tenant level role definitions.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.ListNext(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.RoleDefinitionsOperationsExtensions.ListNextAsync(Microsoft.Azure.Management.Profiles.profile_2017_03_09.Authorization.IRoleDefinitionsOperations,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get all role definitions that are applicable at scope and above.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='nextPageLink'>
+            The NextLink from the previous successful call to List operation.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+    </members>
+</doc>
