@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Authorization;
 using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
 
-namespace Resources
+namespace Resource
 {
     public class Resources
     {
