@@ -2,14 +2,14 @@ using System;
 using System.Threading.Tasks;
 using Authorization;
 using Resource;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 
 namespace TestProject
 {
-    [TestClass]
     public class TestSamples
     {
-        [TestMethod]
+        [Fact]
         public async Task ResourceGroupCreationTest()
         {
             const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
@@ -31,7 +31,7 @@ namespace TestProject
             var rgname = "test-dotnet-rg-3";
 
             var rg = await Resources.CreateResourceGroup(rgname, location);
-            Assert.Equals(rgname, rg.Name);
+            Assert.Equal(rgname, rg.Name);
         }
     }
 }
