@@ -2,13 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
     
-    using System.Net.Http;
     using Authorization;
     using Profile2018Network = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Network;
-    using Resource;
+    using Microsoft.Rest.Azure;
 
     public class NetworkController
     {
@@ -42,7 +41,7 @@
             client.SetUserAgent(ComponentName);
         }
 
-        public async Task<Profile2018Network.Models.PublicIPAddress> CreatePublicIpAddress(
+        public async Task<AzureOperationResponse<Profile2018Network.Models.PublicIPAddress>> CreatePublicIpAddress(
             string publicIpName,
             string resourceGroupName,
             string location,
@@ -52,7 +51,14 @@
         {
             if (client == null)
             {
-                throw new Exception("Client is not instantiated");
+                return new AzureOperationResponse<Profile2018Network.Models.PublicIPAddress>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
             }
 
             var publicIp = new Profile2018Network.Models.PublicIPAddress
@@ -67,32 +73,159 @@
             else
             {
                 allocationMethod = Profile2018Network.Models.IPAllocationMethod.Static;
-                if (String.IsNullOrEmpty(publicIpAddress))
+                if (!String.IsNullOrEmpty(publicIpAddress))
                 {
-                    throw new Exception("Public IP Address cannot be empty for static allocation method.");
+                    publicIp.IpAddress = publicIpAddress;
                 }
-                publicIp.IpAddress = publicIpAddress;
             }
             publicIp.PublicIPAllocationMethod = allocationMethod;
 
-            foreach(var tag in tags ?? new List<(string, string)>())
+            foreach (var tag in tags ?? new List<(string, string)>())
             {
                 var t = tag.Item1;
-                
+
                 publicIp.Tags.Add(tag.Item1, tag.Item2);
             }
-            
-            var publicIpTask = await client.PublicIPAddresses.CreateOrUpdateWithHttpMessagesAsync(
-                resourceGroupName: resourceGroupName,
-                publicIpAddressName: publicIpName,
-                parameters: publicIp
-                );
 
-            if (!publicIpTask.Response.IsSuccessStatusCode)
+            try
             {
-                return null;
+                var publicIpTask = await client.PublicIPAddresses.CreateOrUpdateWithHttpMessagesAsync(
+                    resourceGroupName: resourceGroupName,
+                    publicIpAddressName: publicIpName,
+                    parameters: publicIp);
+                return publicIpTask;
             }
-            return publicIpTask.Body;
+            catch (Exception ex){
+                return new AzureOperationResponse<Profile2018Network.Models.PublicIPAddress>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>> CreateVirtualNetwork(
+            string virtualNetworkName,
+            IList<string> vnetAddressSpaces,
+            Dictionary<string, string> subnets,
+            string resourceGroupName,
+            string location)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+
+            var subnetsParameters = new List<Profile2018Network.Models.Subnet>();
+            foreach (var subnet in subnets ?? new Dictionary<string, string>())
+            {
+                if (string.IsNullOrEmpty(subnet.Value))
+                {
+                    return new AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>
+                    {
+                        Response = new HttpResponseMessage
+                        {
+                            StatusCode = System.Net.HttpStatusCode.BadRequest,
+                            ReasonPhrase = string.Format("Subnet address space is not valid. Subnet: {0}", subnet.Key)
+                        }
+                    };
+                }
+                subnetsParameters.Add(new Profile2018Network.Models.Subnet
+                {
+                    Name = subnet.Key,
+                    AddressPrefix = subnet.Value
+                });
+            }
+
+            var vnet = new Profile2018Network.Models.VirtualNetwork
+            {
+                Location = location,
+                AddressSpace = new Profile2018Network.Models.AddressSpace
+                {
+                    AddressPrefixes = vnetAddressSpaces
+                },
+                Subnets = subnetsParameters
+            };
+
+            try
+            {
+                var vnetTask = await client.VirtualNetworks.CreateOrUpdateWithHttpMessagesAsync(
+                    resourceGroupName: resourceGroupName,
+                    virtualNetworkName: virtualNetworkName,
+                    parameters: vnet);
+                return vnetTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Network.Models.Subnet>> AddSubnet(
+            string subnetName,
+            string virtualNetworkName,
+            string subnetAddressSpace,
+            string resourceGroupName)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.Subnet>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+            try
+            {
+                var vnet = await client.VirtualNetworks.GetWithHttpMessagesAsync(resourceGroupName, virtualNetworkName);
+                if (!vnet.Response.IsSuccessStatusCode || vnet.Body == null)
+                {
+                    return null;
+                }
+                var subnetParams = new Profile2018Network.Models.Subnet
+                {
+                    AddressPrefix = subnetAddressSpace
+                };
+                var subnetTask = await client.Subnets.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, virtualNetworkName, subnetName, subnetParams);
+
+                if (!subnetTask.Response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                return subnetTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.Subnet>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+            
         }
     }
 }

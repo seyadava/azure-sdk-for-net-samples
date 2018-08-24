@@ -1,11 +1,13 @@
 ﻿namespace Resource
 {
     using System;
-    using System.Threading.Tasks;
     using System.Net.Http;
+    using System.Threading.Tasks;
+    
     using Authorization;
     using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
-    
+    using Microsoft.Rest.Azure;
+
     public class ResourcesController
     {
         private const string ComponentName = "DotnetSDK_ResourceController";
@@ -38,83 +40,154 @@
             client.SetUserAgent(ComponentName);
         }
 
-        public async Task<Profile2018ResourceManager.Models.ResourceGroup> CreateResourceGroup(
+        public async Task<AzureOperationResponse<Profile2018ResourceManager.Models.ResourceGroup>> CreateResourceGroup(
             string resourceGroupName, 
             string location)
         {
             if (client == null)
             {
-                throw new Exception("Client is not instantiated");
-            }
-            var resourceGroupTask = await client.ResourceGroups.CreateOrUpdateWithHttpMessagesAsync(
-                resourceGroupName: resourceGroupName,
-                parameters: new Profile2018ResourceManager.Models.ResourceGroup
+                return new AzureOperationResponse<Profile2018ResourceManager.Models.ResourceGroup>
                 {
-                    Location = location
-                });
-
-            if (!resourceGroupTask.Response.IsSuccessStatusCode)
-            {
-                return null;
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
             }
-            return resourceGroupTask.Body;
+            try
+            {
+                var resourceGroupTask = await client.ResourceGroups.CreateOrUpdateWithHttpMessagesAsync(
+                    resourceGroupName: resourceGroupName,
+                    parameters: new Profile2018ResourceManager.Models.ResourceGroup
+                    {
+                        Location = location
+                    });
+
+                return resourceGroupTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018ResourceManager.Models.ResourceGroup>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
         }
 
         public async Task<HttpResponseMessage> DeleteResourceGroup(string resourceGroupName)
         {
             if (client == null)
             {
-                throw new Exception("Client is not instantiated");
+                return new HttpResponseMessage { 
+                    StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                    ReasonPhrase = "Client is not instantiated"
+                };
             }
-            var resourceGroupTask = await client.ResourceGroups.DeleteWithHttpMessagesAsync(resourceGroupName);
+            try
+            {
+                var resourceGroupTask = await client.ResourceGroups.DeleteWithHttpMessagesAsync(resourceGroupName);
 
-            return resourceGroupTask.Response;
+                return resourceGroupTask.Response;
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest,
+                    ReasonPhrase = ex.Message
+                };
+            }
         }
 
-        public async Task<bool> CheckResourceGroupExistance(string resourceGroupName)
+        public async Task<AzureOperationResponse<bool>> CheckResourceGroupExistance(string resourceGroupName)
         {
             if (client == null)
             {
-                throw new Exception("Client is not instantiated");
+                return new AzureOperationResponse<bool>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
             }
-            var resourceGroupTask = await client.ResourceGroups.CheckExistenceWithHttpMessagesAsync(resourceGroupName);
-
-            if (!resourceGroupTask.Response.IsSuccessStatusCode)
+            try
             {
-                throw new Exception("Failed to check resource group existance.");
+                var resourceGroupTask = await client.ResourceGroups.CheckExistenceWithHttpMessagesAsync(resourceGroupName);
+                return resourceGroupTask;
             }
-            return resourceGroupTask.Body;
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<bool>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
         }
 
-        public async Task<Profile2018ResourceManager.Models.Provider> RegisterResourceProvider(string resourceProvider)
+        public async Task<AzureOperationResponse<Profile2018ResourceManager.Models.Provider>> RegisterResourceProvider(
+            string resourceProvider,
+            int maxRetryDuration = 120,
+            int sleepDuration = 10)
         {
             if (client == null)
             {
-                throw new Exception("Client is not instantiated");
+                return new AzureOperationResponse<Profile2018ResourceManager.Models.Provider>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
             }
             var sleepSeconds = 0;
-            Microsoft.Rest.Azure.AzureOperationResponse<Profile2018ResourceManager.Models.Provider> resourceGroupTask;
-            while (true) {
-                if (sleepSeconds > 120)
+            AzureOperationResponse<Profile2018ResourceManager.Models.Provider> resourceGroupTask;
+            try
+            {
+                while (true)
                 {
-                    return null;
-                }
-                resourceGroupTask = await client.Providers.RegisterWithHttpMessagesAsync(resourceProvider);
+                    if (sleepSeconds > maxRetryDuration)
+                    {
+                        return null;
+                    }
+                    resourceGroupTask = await client.Providers.RegisterWithHttpMessagesAsync(resourceProvider);
 
-                if (!resourceGroupTask.Response.IsSuccessStatusCode)
-                {
-                    return null;
-                }
+                    if (!resourceGroupTask.Response.IsSuccessStatusCode)
+                    {
+                        return null;
+                    }
 
-                var provider = resourceGroupTask.Body;
-                if (String.Equals(provider.RegistrationState, "registered", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return provider;
+                    var provider = resourceGroupTask;
+                    if (String.Equals(provider.Body.RegistrationState, "registered", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return provider;
+                    }
+                    sleepSeconds += sleepDuration;
+                    System.Threading.Thread.Sleep(sleepSeconds * 1000);
                 }
-                sleepSeconds += 10;
-                System.Threading.Thread.Sleep(sleepSeconds * 1000);
             }
-            
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018ResourceManager.Models.Provider>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
         }
     }
 }
