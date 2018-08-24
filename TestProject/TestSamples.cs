@@ -256,5 +256,79 @@ namespace TestProject
             Assert.Equal(subnetName, subnet.Body.Name);
             Assert.NotEmpty(subnet.Body.Id);
         }
+
+        [Fact]
+        public async Task GetPubliIPAddressTest()
+        {
+            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
+            const string location = "eastus";
+            var baseUri = new Uri("https://management.azure.com/");
+            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
+            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
+            string azureEnvironmentResourceId = "https://management.core.windows.net/";
+            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+
+            //const string location = "redmond";
+            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+
+            var credentials = new CustomLoginCredentials(
+                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
+
+            var ipName = "test-dotnet-publicip-static";
+            var resourceGroupName = "test-dotnet-rg-3";
+
+            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
+
+            var ip = await networkController.GetPublicIpAddress(ipName, resourceGroupName);
+            Assert.NotNull(ip.Body);
+            Assert.Equal(ipName, ip.Body.Name);
+            Assert.NotEmpty(ip.Body.Id);
+        }
+
+        [Fact]
+        public async Task CreateNetworkInterfaceTest()
+        {
+            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
+            const string location = "eastus";
+            var baseUri = new Uri("https://management.azure.com/");
+            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
+            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
+            string azureEnvironmentResourceId = "https://management.core.windows.net/";
+            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+
+            //const string location = "redmond";
+            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+
+            var resourceGroupName = "test-dotnet-rg-3";
+            var virtualNetworkName = "test-dotnet-vnet";
+            var vnetAddressSpaces = new List<string> { "10.0.0.0/16" };
+            var subnetName = "test-dotnet-subnet";
+            var subnets = new Dictionary<string, string> { { subnetName, "10.0.0.0/20" } };
+            
+            var ipName = "test-pip";
+            var nicName = "test-dotnet-nic";
+
+            var credentials = new CustomLoginCredentials(
+                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
+
+            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
+            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
+            
+            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+            Assert.NotNull(resourceGroup.Body);
+            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
+            Assert.NotNull(ip.Body);
+            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            var vnet = await networkController.CreateVirtualNetwork(virtualNetworkName, vnetAddressSpaces, subnets, resourceGroupName, location);
+            Assert.NotNull(vnet.Body);
+            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, virtualNetworkName, subnetName, ipName, location);
+            Assert.NotNull(nic.Body);
+            Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }

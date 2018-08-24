@@ -197,21 +197,19 @@
             }
             try
             {
-                var vnet = await client.VirtualNetworks.GetWithHttpMessagesAsync(resourceGroupName, virtualNetworkName);
-                if (!vnet.Response.IsSuccessStatusCode || vnet.Body == null)
+                var vnet = await GetVirtualNetwork(virtualNetworkName, resourceGroupName);
+                if (!vnet.Response.IsSuccessStatusCode)
                 {
-                    return null;
+                    return new AzureOperationResponse<Profile2018Network.Models.Subnet>
+                    {
+                        Response = vnet.Response
+                    };
                 }
                 var subnetParams = new Profile2018Network.Models.Subnet
                 {
                     AddressPrefix = subnetAddressSpace
                 };
                 var subnetTask = await client.Subnets.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, virtualNetworkName, subnetName, subnetParams);
-
-                if (!subnetTask.Response.IsSuccessStatusCode)
-                {
-                    return null;
-                }
                 return subnetTask;
             }
             catch (Exception ex)
@@ -227,5 +225,189 @@
             }
             
         }
+
+        public async Task<AzureOperationResponse<Profile2018Network.Models.Subnet>> GetSubnet(
+            string subnetName,
+            string virtualNetworkName,
+            string resourceGroupName)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.Subnet>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+            try
+            {
+                var subnetTask = await client.Subnets.GetWithHttpMessagesAsync(resourceGroupName, virtualNetworkName, subnetName);
+                return subnetTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.Subnet>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>> GetVirtualNetwork(
+            string virtualNetworkName, 
+            string resourceGroupName)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+
+            try
+            {
+                var vnet = await client.VirtualNetworks.GetWithHttpMessagesAsync(resourceGroupName, virtualNetworkName);
+                return vnet;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Network.Models.PublicIPAddress>> GetPublicIpAddress(
+            string publicIpName, 
+            string resourceGroupName)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.PublicIPAddress>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+
+            try
+            {
+                var publicIpTask = await client.PublicIPAddresses.GetWithHttpMessagesAsync(resourceGroupName, publicIpName);
+                return publicIpTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.PublicIPAddress>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Network.Models.NetworkInterface>> CreateNetworkInterface(
+            string nicName,
+            string resourceGroupName,
+            string virtualNetworkName,
+            string subnetName,
+            string ipName,
+            string location,
+            string allocationMethod = "Dynamic",
+            IList<(string, string)> tags = null)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.NetworkInterface>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+
+            try
+            {
+                var subnetTask = await GetSubnet(subnetName, virtualNetworkName, resourceGroupName);
+                if (!subnetTask.Response.IsSuccessStatusCode)
+                {
+                    return new AzureOperationResponse<Profile2018Network.Models.NetworkInterface>
+                    {
+                        Response = subnetTask.Response
+                    };
+                }
+
+                var ipTask = await GetPublicIpAddress(ipName, resourceGroupName);
+                if (!ipTask.Response.IsSuccessStatusCode)
+                {
+                    return new AzureOperationResponse<Profile2018Network.Models.NetworkInterface>
+                    {
+                        Response = ipTask.Response
+                    };
+                }
+
+                var nic = new Profile2018Network.Models.NetworkInterface
+                {
+                    Location = location,
+                    IpConfigurations = new List<Profile2018Network.Models.NetworkInterfaceIPConfiguration>
+                    {
+                        new Profile2018Network.Models.NetworkInterfaceIPConfiguration
+                        {
+                            Name = string.Format("{0}-ipconfig", nicName),
+                            PrivateIPAllocationMethod = allocationMethod,
+                            PublicIPAddress = ipTask.Body,
+                            Subnet = subnetTask.Body
+                        }
+                    }
+                };
+
+                foreach (var tag in tags ?? new List<(string, string)>())
+                {
+                    var t = tag.Item1;
+
+                    nic.Tags.Add(tag.Item1, tag.Item2);
+                }
+
+                var nicTask = await client.NetworkInterfaces.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, nicName, nic);
+                return nicTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Network.Models.NetworkInterface>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
     }
+
 }
