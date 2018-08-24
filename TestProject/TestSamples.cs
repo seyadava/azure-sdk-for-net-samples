@@ -6,8 +6,10 @@ namespace TestProject
     using Authorization;
     using Network;
     using Resource;
+    using Storage;
     using Xunit;
     using Microsoft.Rest.Azure;
+    using Profile2018Storage = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage;
 
     public class TestSamples
     {
@@ -329,6 +331,39 @@ namespace TestProject
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, virtualNetworkName, subnetName, ipName, location);
             Assert.NotNull(nic.Body);
             Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        [Fact]
+        public async Task CreateStorageAccountTest()
+        {
+            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
+            const string location = "eastus";
+            var baseUri = new Uri("https://management.azure.com/");
+            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
+            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
+            string azureEnvironmentResourceId = "https://management.core.windows.net/";
+            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+
+            //const string location = "redmond";
+            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+
+            var credentials = new CustomLoginCredentials(
+                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
+
+            var resourceGroupName = "test-dotnet-rg-3";
+            var storageAccountName = string.Format("teststorageaccount{0}", new Random().Next(0,99));
+            var storageAccountSku = Profile2018Storage.Models.SkuName.StandardLRS;
+
+            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
+            var storageController = new StorageController(baseUri, credentials, subscriptionId);
+
+            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+            Assert.NotNull(resourceGroup.Body);
+            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
+            Assert.NotNull(storageAccount.Body);
+            Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
