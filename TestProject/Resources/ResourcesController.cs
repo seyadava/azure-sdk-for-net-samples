@@ -9,14 +9,13 @@
     using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
     using Microsoft.Rest.Azure;
 
-
     public class ResourcesController
     {
         private const string ComponentName = "DotnetSDK_ResourceController";
         private readonly CustomLoginCredentials customCredential;
         private readonly AzureCredentials azureCredential;
         private readonly string subscriotionId;
-        private Uri baseUri;
+        private readonly Uri baseUri;
         private static Profile2018ResourceManager.ResourceManagementClient client;
 
         public ResourcesController(
@@ -50,13 +49,17 @@
             }
             if (this.customCredential != null)
             {
-                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: this.baseUri, credentials: this.customCredential);
-                client.SubscriptionId = this.subscriotionId;
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: customCredential)
+                {
+                    SubscriptionId = this.subscriotionId
+                };
             }
             else
             {
-                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: this.baseUri, credentials: this.azureCredential);
-                client.SubscriptionId = this.azureCredential.DefaultSubscriptionId;
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: azureCredential)
+                {
+                    SubscriptionId = this.azureCredential.DefaultSubscriptionId
+                };
             }
             
             client.SetUserAgent(ComponentName);

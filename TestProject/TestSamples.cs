@@ -3,7 +3,7 @@ namespace TestProject
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Authorization;
+    using Compute;
     using Network;
     using Resource;
     using Storage;
@@ -381,6 +381,84 @@ namespace TestProject
             // VALIDATION
             Assert.NotNull(storageAccount.Body);
             Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        [Fact]
+        public async Task CreateLinuxVirtualMachineTest()
+        {
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var vmName = Environment.GetEnvironmentVariable("AZURE_VM_NAME");
+            var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
+            var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
+            var subnetAddresses = Environment.GetEnvironmentVariable("AZURE_SUBNET_ADDRESSES");
+            var vnetAddresses = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESSES");
+            var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
+            var nicName = Environment.GetEnvironmentVariable("AZURE_NIC_NAME");
+            var storageNamePrefix = Environment.GetEnvironmentVariable("AZURE_STORAGENAME_PREFIX");
+            var storageEndpoint = Environment.GetEnvironmentVariable("AZURE_STORAGE_ENDPOINT");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var storageAccountName = string.Format("{0}{1}", storageNamePrefix, new Random().Next(0, 99));
+            var storageAccountSku = Profile2018Storage.Models.SkuName.StandardLRS;
+
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
+            var storageController = new StorageController(new Uri(baseUriString), credentialsFromFile);
+            var computerController = new ComputeController(new Uri(baseUriString), credentialsFromFile);
+
+            // CREATE RESOURCE GROUP
+            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+
+            // CREATE RESOURCE GROUP VALIDATION
+            Assert.NotNull(resourceGroup.Body);
+            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE VNET
+            var vnetAddressSpaces = vnetAddresses.Split(";");
+            var subNames = subnetNames.Split(";");
+            var suAddresses = subnetAddresses.Split(";");
+            var subnets = new Dictionary<string, string>();
+            for (int i = 0; i < subNames.Length; i++)
+            {
+                subnets.Add(subNames[i], suAddresses[i]);
+            }
+
+            var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
+
+            // CREATE VNET VALIDATION
+            Assert.NotNull(vnet.Body);
+            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE IP
+            var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
+
+            // CREATE IP VALIDATION
+            Assert.NotNull(ip.Body);
+            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE NIC
+            var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
+
+            // CREATE NIC VALIDATION
+            Assert.NotNull(nic.Body);
+            Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE STORAGE ACCOUNT
+            var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
+
+            // STORAGE ACCOUNT VALIDATION
+            Assert.NotNull(storageAccount.Body);
+            Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE VM
+            var vm = await computerController.CreateLinuxVirtialMachine(resourceGroupName, vmName, storageAccountName, storageEndpoint, nic.Body.Id, location);
+
+            // VALIDATION
+            Assert.NotNull(vm.Body);
+            Assert.True(String.Equals("Succeeded", vm.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
