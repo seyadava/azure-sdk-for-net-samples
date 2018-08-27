@@ -7,25 +7,36 @@
 
     using Authorization;
     using Profile2018Storage = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage;
+    using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
     using Microsoft.Rest.Azure;
 
     public class StorageController
     {
         private const string ComponentName = "DotnetSDK_StorageController";
-        private readonly CustomLoginCredentials credential;
+        private readonly CustomLoginCredentials customCredential;
+        private readonly AzureCredentials azureCredential;
         private readonly string subscriotionId;
-        private Uri baseUri;
+        private readonly Uri baseUri;
         private static Profile2018Storage.StorageManagementClient client;
 
         public StorageController(
             Uri baseUri,
             CustomLoginCredentials credentials,
-            string subscriptionIdentifier
-            )
+            string subscriptionIdentifier)
         {
             this.baseUri = baseUri;
-            this.credential = credentials;
+            this.customCredential = credentials;
             this.subscriotionId = subscriptionIdentifier;
+
+            GetStorageAccountClient();
+        }
+
+        public StorageController(
+            Uri baseUri,
+            AzureCredentials credentials)
+        {
+            this.baseUri = baseUri;
+            this.azureCredential = credentials;
 
             GetStorageAccountClient();
         }
@@ -36,8 +47,20 @@
             {
                 return;
             }
-            client = new Profile2018Storage.StorageManagementClient(baseUri: this.baseUri, credentials: this.credential);
-            client.SubscriptionId = this.subscriotionId;
+            if (customCredential != null)
+            {
+                client = new Profile2018Storage.StorageManagementClient(baseUri: baseUri, credentials: customCredential)
+                {
+                    SubscriptionId = this.subscriotionId
+                };
+            }
+            else
+            {
+                client = new Profile2018Storage.StorageManagementClient(baseUri: baseUri, credentials: azureCredential)
+                {
+                    SubscriptionId = this.azureCredential.DefaultSubscriptionId
+                };
+            }
             client.SetUserAgent(ComponentName);
         }
 

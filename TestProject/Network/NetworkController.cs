@@ -16,7 +16,7 @@
         private readonly CustomLoginCredentials customCredential;
         private readonly AzureCredentials azureCredential;
         private readonly string subscriotionId;
-        private Uri baseUri;
+        private readonly Uri baseUri;
         private static Profile2018Network.NetworkManagementClient client;
 
         public NetworkController(
@@ -50,13 +50,17 @@
             }
             if (customCredential != null)
             {
-                client = new Profile2018Network.NetworkManagementClient(baseUri: this.baseUri, credentials: this.customCredential);
-                client.SubscriptionId = this.subscriotionId;
+                client = new Profile2018Network.NetworkManagementClient(baseUri: baseUri, credentials: customCredential)
+                {
+                    SubscriptionId = this.subscriotionId
+                };
             }
             else
             {
-                client = new Profile2018Network.NetworkManagementClient(baseUri: this.baseUri, credentials: this.azureCredential);
-                client.SubscriptionId = this.azureCredential.DefaultSubscriptionId;
+                client = new Profile2018Network.NetworkManagementClient(baseUri: baseUri, credentials: azureCredential)
+                {
+                    SubscriptionId = this.azureCredential.DefaultSubscriptionId
+                };
             }
             client.SetUserAgent(ComponentName);
         }

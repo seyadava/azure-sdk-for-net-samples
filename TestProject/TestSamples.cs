@@ -17,25 +17,19 @@ namespace TestProject
         [Fact]
         public async Task CreateResourceGroupTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-
-            var resourceGroupName = "test-dotnet-rg-3";
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
+            // VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             Assert.Equal(resourceGroupName, resourceGroup.Body.Name);
@@ -45,105 +39,99 @@ namespace TestProject
         [Fact]
         public async Task DeleteResourceGroupTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceGroupName = "test-dotnet-rg-3";
+            // DELETE RESOURCE GROUP
             var resourceGroup = await resourceController.DeleteResourceGroup(resourceGroupName);
 
+            // VALIDATION
             Assert.True(resourceGroup.IsSuccessStatusCode);
         }
         
         [Fact]
         public async Task RegisterResourceProviderTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var resourceProvidersName = Environment.GetEnvironmentVariable("AZURE_RESOURCEPROVIDERS");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
+            // REGISTER RESOURCE PROVIDER
+            var providers = resourceProvidersName.Split(";");
 
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceProviderName = "Microsoft.Compute";
-            var resourceProvider = await resourceController.RegisterResourceProvider(resourceProviderName);
-
-            Assert.NotNull(resourceProvider.Body);
-            Assert.True(String.Equals("registered", resourceProvider.Body.RegistrationState, StringComparison.InvariantCultureIgnoreCase));
+            foreach(var resourceProviderName in providers)
+            {
+                var resourceProvider = await resourceController.RegisterResourceProvider(resourceProviderName);
+                
+                // VALIDATION
+                Assert.NotNull(resourceProvider.Body);
+                Assert.True(String.Equals("registered", resourceProvider.Body.RegistrationState, StringComparison.InvariantCultureIgnoreCase));
+            }
         }
 
         [Fact]
         public async Task ResourceGroupExistanceCheckTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceGroupName = "test-dotnet-rg-3";
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
+            // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
+            // CHECK RESOURCE GROUP
             var resourceGroupExistance = await resourceController.CheckResourceGroupExistance(resourceGroupName);
+
+            // CHECK RESOURCE GROUP VALIDATION
             Assert.True(resourceGroupExistance.Body);
         }
 
         [Fact]
         public async Task CreateDynamicPubliIPAddressTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceGroupName = "test-dotnet-rg-3";
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
+            // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
-            var ipName = "test-dotnet-publicip";
+            // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
+
+            // VALIDATION
             Assert.NotNull(ip.Body);
             Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             Assert.Equal(ipName, ip.Body.Name);
@@ -154,30 +142,28 @@ namespace TestProject
         [Fact]
         public async Task CreateStaticPubliIPAddressTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceGroupName = "test-dotnet-rg-3";
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
+            // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-
-            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
-            var ipName = "test-dotnet-publicip-static";
+            
+            // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
+
+            // VALIDATION
             Assert.NotNull(ip.Body);
             Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             Assert.Equal(ipName, ip.Body.Name);
@@ -189,33 +175,40 @@ namespace TestProject
         [Fact]
         public async Task CreateVnetWithSubnetTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
+            var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
+            var subnetAddresses = Environment.GetEnvironmentVariable("AZURE_SUBNET_ADDRESSES");
+            var vnetAddresses = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESSES");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceGroupName = "test-dotnet-rg-3";
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
+            // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
-
-            var vnetName = "test-dotnet-vnet";
-            var vnetAddressSpaces = new List<string> { "10.0.0.0/16" };
-            var subnets = new Dictionary<string, string> { { "test-dotnet-subnet1", "10.0.0.0/24" } };
+            // CREATE VNET
+            var vnetAddressSpaces = vnetAddresses.Split(";");
+            var subNames = subnetNames.Split(";");
+            var suAddresses = subnetAddresses.Split(";");
+            var subnets = new Dictionary<string, string>();
+            for (int i = 0; i < subNames.Length; i++)
+            {
+                subnets.Add(subNames[i], suAddresses[i]);
+            }
+            
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
+
+            // VALIDATION
             Assert.NotNull(vnet.Body);
             Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             Assert.Equal(vnetName, vnet.Body.Name);
@@ -231,10 +224,10 @@ namespace TestProject
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
             var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
-            var vnetAddressSpace = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESS");
+            var vnetAddressSpace = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESSES");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
             var newSubnetName = "test-dotnet-newsubnet";
-            var newSubnetAddress = "10.0.1.0/24";
+            var newSubnetAddress = "10.0.16.0/24";
 
             // SET CONTROLLERS
             var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
@@ -248,7 +241,7 @@ namespace TestProject
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE VNET
-            var vnetAddressSpaces = new List<string> { vnetAddressSpace };
+            var vnetAddressSpaces = vnetAddressSpace.Split(";");
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location);
 
             // VNET CREATION VALIDATION
@@ -268,73 +261,93 @@ namespace TestProject
         [Fact]
         public async Task GetPubliIPAddressTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLERS
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
+            // CREATE RESOURCE GROUP
+            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
-            var ipName = "test-dotnet-publicip-static";
-            var resourceGroupName = "test-dotnet-rg-3";
+            // RESOURCE GROUP CREATION VALIDATION
+            Assert.NotNull(resourceGroup.Body);
+            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
+            // CREATE IP
+            var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
 
-            var ip = await networkController.GetPublicIpAddress(ipName, resourceGroupName);
+            // CREATE IP VALIDATION
             Assert.NotNull(ip.Body);
-            Assert.Equal(ipName, ip.Body.Name);
-            Assert.NotEmpty(ip.Body.Id);
+            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // GET IP
+            var ipTask = await networkController.GetPublicIpAddress(ipName, resourceGroupName);
+
+            // VALIDATION
+            Assert.NotNull(ipTask.Body);
+            Assert.Equal(ipName, ipTask.Body.Name);
+            Assert.NotEmpty(ipTask.Body.Id);
         }
 
         [Fact]
         public async Task CreateNetworkInterfaceTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
+            var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
+            var subnetAddresses = Environment.GetEnvironmentVariable("AZURE_SUBNET_ADDRESSES");
+            var vnetAddresses = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESSES");
+            var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
+            var nicName = Environment.GetEnvironmentVariable("AZURE_NIC_NAME");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
-            var resourceGroupName = "test-dotnet-rg-3";
-            var virtualNetworkName = "test-dotnet-vnet";
-            var vnetAddressSpaces = new List<string> { "10.0.0.0/16" };
-            var subnetName = "test-dotnet-subnet";
-            var subnets = new Dictionary<string, string> { { subnetName, "10.0.0.0/20" } };
-            
-            var ipName = "test-pip";
-            var nicName = "test-dotnet-nic";
-
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
-            
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+
+            // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
-            Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+            // CREATE VNET
+            var vnetAddressSpaces = vnetAddresses.Split(";");
+            var subNames = subnetNames.Split(";");
+            var suAddresses = subnetAddresses.Split(";");
+            var subnets = new Dictionary<string, string>();
+            for (int i = 0; i < subNames.Length; i++)
+            {
+                subnets.Add(subNames[i], suAddresses[i]);
+            }
 
-            var vnet = await networkController.CreateVirtualNetwork(virtualNetworkName, vnetAddressSpaces, resourceGroupName, location, subnets);
+            var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
+
+            // CREATE VNET VALIDATION
             Assert.NotNull(vnet.Body);
             Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, virtualNetworkName, subnetName, ipName, location);
+            // CREATE IP
+            var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
+
+            // CREATE IP VALIDATION
+            Assert.NotNull(ip.Body);
+            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE NIC
+            var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
+
+            // VALIDATION
             Assert.NotNull(nic.Body);
             Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -342,32 +355,30 @@ namespace TestProject
         [Fact]
         public async Task CreateStorageAccountTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
-
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
-
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceGroupName = "test-dotnet-rg-3";
-            var storageAccountName = string.Format("teststorageaccount{0}", new Random().Next(0,99));
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var storageNamePrefix = Environment.GetEnvironmentVariable("AZURE_STORAGENAME_PREFIX");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var storageAccountName = string.Format("{0}{1}", storageNamePrefix, new Random().Next(0, 99));
             var storageAccountSku = Profile2018Storage.Models.SkuName.StandardLRS;
 
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var storageController = new StorageController(baseUri, credentials, subscriptionId);
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var storageController = new StorageController(new Uri(baseUriString), credentialsFromFile);
 
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+
+            // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-
+            
+            // CREATE STORAGE ACCOUNT
             var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
+
+            // VALIDATION
             Assert.NotNull(storageAccount.Body);
             Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
         }
