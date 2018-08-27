@@ -6,12 +6,15 @@
     
     using Authorization;
     using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
+    using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
     using Microsoft.Rest.Azure;
+
 
     public class ResourcesController
     {
         private const string ComponentName = "DotnetSDK_ResourceController";
-        private readonly CustomLoginCredentials credential;
+        private readonly CustomLoginCredentials customCredential;
+        private readonly AzureCredentials azureCredential;
         private readonly string subscriotionId;
         private Uri baseUri;
         private static Profile2018ResourceManager.ResourceManagementClient client;
@@ -23,8 +26,18 @@
             )
         {
             this.baseUri = baseUri;
-            this.credential = credentials;
+            this.customCredential = credentials;
             this.subscriotionId = subscriptionIdentifier;
+
+            GetResourceGroupClient();
+        }
+
+        public ResourcesController(
+            Uri baseUri,
+            AzureCredentials credentials)
+        {
+            this.baseUri = baseUri;
+            this.azureCredential = credentials;
 
             GetResourceGroupClient();
         }
@@ -35,8 +48,17 @@
             {
                 return;
             }
-            client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: this.baseUri, credentials: this.credential);
-            client.SubscriptionId = this.subscriotionId;
+            if (this.customCredential != null)
+            {
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: this.baseUri, credentials: this.customCredential);
+                client.SubscriptionId = this.subscriotionId;
+            }
+            else
+            {
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: this.baseUri, credentials: this.azureCredential);
+                client.SubscriptionId = this.azureCredential.DefaultSubscriptionId;
+            }
+            
             client.SetUserAgent(ComponentName);
         }
 

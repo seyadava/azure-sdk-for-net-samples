@@ -7,12 +7,14 @@
     
     using Authorization;
     using Profile2018Network = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Network;
+    using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
     using Microsoft.Rest.Azure;
 
     public class NetworkController
     {
         private const string ComponentName = "DotnetSDK_NetworkController";
-        private readonly CustomLoginCredentials credential;
+        private readonly CustomLoginCredentials customCredential;
+        private readonly AzureCredentials azureCredential;
         private readonly string subscriotionId;
         private Uri baseUri;
         private static Profile2018Network.NetworkManagementClient client;
@@ -24,8 +26,18 @@
             )
         {
             this.baseUri = baseUri;
-            this.credential = credentials;
+            this.customCredential = credentials;
             this.subscriotionId = subscriptionIdentifier;
+
+            GetNetworkClient();
+        }
+
+        public NetworkController(
+            Uri baseUri,
+            AzureCredentials credentials)
+        {
+            this.baseUri = baseUri;
+            this.azureCredential = credentials;
 
             GetNetworkClient();
         }
@@ -36,8 +48,16 @@
             {
                 return;
             }
-            client = new Profile2018Network.NetworkManagementClient(baseUri: this.baseUri, credentials: this.credential);
-            client.SubscriptionId = this.subscriotionId;
+            if (customCredential != null)
+            {
+                client = new Profile2018Network.NetworkManagementClient(baseUri: this.baseUri, credentials: this.customCredential);
+                client.SubscriptionId = this.subscriotionId;
+            }
+            else
+            {
+                client = new Profile2018Network.NetworkManagementClient(baseUri: this.baseUri, credentials: this.azureCredential);
+                client.SubscriptionId = this.azureCredential.DefaultSubscriptionId;
+            }
             client.SetUserAgent(ComponentName);
         }
 
@@ -110,9 +130,9 @@
         public async Task<AzureOperationResponse<Profile2018Network.Models.VirtualNetwork>> CreateVirtualNetwork(
             string virtualNetworkName,
             IList<string> vnetAddressSpaces,
-            Dictionary<string, string> subnets,
             string resourceGroupName,
-            string location)
+            string location,
+            Dictionary<string, string> subnets = null)
         {
             if (client == null)
             {

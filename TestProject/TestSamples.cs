@@ -10,6 +10,7 @@ namespace TestProject
     using Xunit;
     using Microsoft.Rest.Azure;
     using Profile2018Storage = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage;
+    using Microsoft.Azure.Management.ResourceManager.Fluent;
 
     public class TestSamples
     {
@@ -214,7 +215,7 @@ namespace TestProject
             var vnetName = "test-dotnet-vnet";
             var vnetAddressSpaces = new List<string> { "10.0.0.0/16" };
             var subnets = new Dictionary<string, string> { { "test-dotnet-subnet1", "10.0.0.0/24" } };
-            var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, subnets, resourceGroupName, location);
+            var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
             Assert.NotNull(vnet.Body);
             Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             Assert.Equal(vnetName, vnet.Body.Name);
@@ -225,37 +226,42 @@ namespace TestProject
         [Fact]
         public async Task AddSubnetToExistingVnetTest()
         {
-            const string subscriptionId = "fa9ea22d-a053-4a9e-9e76-d7f71c1359de";
-            const string location = "eastus";
-            var baseUri = new Uri("https://management.azure.com/");
-            string servicePrincipalId = "5acab3e0-d042-49e0-86e1-cca5c52c165b";
-            string servicePrincipalSecret = "683c1b3e-5479-451d-9186-9ee6b5f130b7";
-            string azureEnvironmentResourceId = "https://management.core.windows.net/";
-            string azureEnvironmentTenandId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
+            var vnetAddressSpace = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESS");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var newSubnetName = "test-dotnet-newsubnet";
+            var newSubnetAddress = "10.0.1.0/24";
 
-            //const string location = "redmond";
-            //var baseUri = new Uri("https://management.redmond.ext-v.masd.stbtest.microsoft.com/");
+            // SET CONTROLLERS
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
-            var credentials = new CustomLoginCredentials(
-                servicePrincipalId, servicePrincipalSecret, azureEnvironmentResourceId, azureEnvironmentTenandId);
-
-            var resourceController = new ResourcesController(baseUri, credentials, subscriptionId);
-            var resourceGroupName = "test-dotnet-rg-3";
+            // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
+            // RESOURCE GROUP CREATION VALIDATION
             Assert.NotNull(resourceGroup.Body);
             Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var networkController = new NetworkController(baseUri, credentials, subscriptionId);
+            // CREATE VNET
+            var vnetAddressSpaces = new List<string> { vnetAddressSpace };
+            var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location);
 
-            var vnetName = "test-dotnet-vnet";
+            // VNET CREATION VALIDATION
+            Assert.NotNull(vnet.Body);
+            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var subnetName = "test-dotnet-newsubnet";
-            var subnetAddress = "10.0.1.0/24";
-            var subnet = await networkController.AddSubnet(subnetName, vnetName, subnetAddress, resourceGroupName);
+            // ADD NEW SUBNET
+            var subnet = await networkController.AddSubnet(newSubnetName, vnetName, newSubnetAddress, resourceGroupName);
+
+            // SUBNET CREATION VALIDATION
             Assert.NotNull(subnet.Body);
             Assert.True(String.Equals("Succeeded", subnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-            Assert.Equal(subnetName, subnet.Body.Name);
+            Assert.Equal(newSubnetName, subnet.Body.Name);
             Assert.NotEmpty(subnet.Body.Id);
         }
 
@@ -324,7 +330,7 @@ namespace TestProject
             Assert.NotNull(ip.Body);
             Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
-            var vnet = await networkController.CreateVirtualNetwork(virtualNetworkName, vnetAddressSpaces, subnets, resourceGroupName, location);
+            var vnet = await networkController.CreateVirtualNetwork(virtualNetworkName, vnetAddressSpaces, resourceGroupName, location, subnets);
             Assert.NotNull(vnet.Body);
             Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
