@@ -31,9 +31,27 @@ namespace TestProject
 
             // VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-            Assert.Equal(resourceGroupName, resourceGroup.Body.Name);
-            Assert.NotEmpty(resourceGroup.Body.Id);
+            Assert.NotEmpty(resourceGroup.Body);
+        }
+
+        [Fact]
+        public async Task CreateResourceGroupAzureTest()
+        {
+            // SET PARAMETERS
+            var location = "westus";
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = "dotnet-hybrid-resourcegroup";
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile, "azure");
+
+            // CREATE RESOURCE GROUP
+            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+
+            // VALIDATION
+            Assert.NotNull(resourceGroup.Body);
+            Assert.NotEmpty(resourceGroup.Body);
         }
 
         [Fact]
@@ -98,7 +116,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CHECK RESOURCE GROUP
             var resourceGroupExistance = await resourceController.CheckResourceGroupExistance(resourceGroupName);
@@ -126,7 +143,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
@@ -158,7 +174,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
@@ -194,7 +209,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE VNET
             var vnetAddressSpaces = vnetAddresses.Split(";");
@@ -238,7 +252,6 @@ namespace TestProject
 
             // RESOURCE GROUP CREATION VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE VNET
             var vnetAddressSpaces = vnetAddressSpace.Split(";");
@@ -277,7 +290,6 @@ namespace TestProject
 
             // RESOURCE GROUP CREATION VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
@@ -319,7 +331,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE VNET
             var vnetAddressSpaces = vnetAddresses.Split(";");
@@ -373,7 +384,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
             
             // CREATE STORAGE ACCOUNT
             var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
@@ -414,7 +424,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE VNET
             var vnetAddressSpaces = vnetAddresses.Split(";");
@@ -480,7 +489,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE DISK
             var disk = await computerController.CreateDisk(resourceGroupName, diskName, 1, location);
@@ -517,7 +525,6 @@ namespace TestProject
 
             // CREATE RESOURCE GROUP VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE VNET
             var vnetAddressSpaces = vnetAddresses.Split(";");
