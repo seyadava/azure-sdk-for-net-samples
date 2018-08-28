@@ -74,13 +74,14 @@
             client.SetUserAgent(ComponentName);
         }
 
-        public async Task<AzureOperationResponse<Profile2018Compute.Models.VirtualMachine>> CreateLinuxVirtialMachine(
+        public async Task<AzureOperationResponse<Profile2018Compute.Models.VirtualMachine>> CreateVirtialMachine(
             string resourceGroupName,
             string virtualMachineName,
             string storageAccountName,
             string storagePrefix,
             string nicId,
-            string location)
+            string location,
+            Profile2018Compute.Models.ImageReference imageReference = null)
         {
             if (client == null)
             {
@@ -112,7 +113,6 @@
                     },
                     StorageProfile = new Profile2018Compute.Models.StorageProfile
                     {
-                        ImageReference = linuxImageReference,
                         OsDisk = new Profile2018Compute.Models.OSDisk
                         {
                             Name = "osDisk",
@@ -134,12 +134,164 @@
                         VmSize = "Standard_A1"
                     }
                 };
+
+                if (imageReference == null)
+                {
+                    vmParameters.StorageProfile.ImageReference = linuxImageReference;
+                }
+                else
+                {
+                    vmParameters.StorageProfile.ImageReference = imageReference;
+                }
                 var virtualMachineTask = await client.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, virtualMachineName, vmParameters);
                 return virtualMachineTask;
             }
             catch (Exception ex)
             {
                 return new AzureOperationResponse<Profile2018Compute.Models.VirtualMachine>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Compute.Models.VirtualMachine>> CreateVirtialMachineWithManagedDisk(
+            string resourceGroupName,
+            string virtualMachineName,
+            string nicId,
+            string diskId,
+            string location,
+            Profile2018Compute.Models.ImageReference imageReference = null)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Compute.Models.VirtualMachine>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+
+            try
+            {
+                var vmParameters = new Profile2018Compute.Models.VirtualMachine
+                {
+                    Location = location,
+                    NetworkProfile = new Profile2018Compute.Models.NetworkProfile
+                    {
+                        NetworkInterfaces = new List<Profile2018Compute.Models.NetworkInterfaceReference>
+                        {
+                            new Profile2018Compute.Models.NetworkInterfaceReference
+                            {
+                                Id = nicId,
+                                Primary = true
+                            }
+                        }
+                    },
+                    StorageProfile = new Profile2018Compute.Models.StorageProfile
+                    {
+                        DataDisks = new List<Profile2018Compute.Models.DataDisk>
+                        {
+                            new Profile2018Compute.Models.DataDisk
+                            {
+                                CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.Attach,
+                                ManagedDisk = new Profile2018Compute.Models.ManagedDiskParameters
+                                {
+                                    StorageAccountType = Profile2018Compute.Models.StorageAccountTypes.StandardLRS,
+                                    Id = diskId
+                                }
+                            }
+                        },
+                        OsDisk = new Profile2018Compute.Models.OSDisk
+                        {
+                            Name = "osDisk",
+                            CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.FromImage
+                        }
+                    },
+                    OsProfile = new Profile2018Compute.Models.OSProfile
+                    {
+                        ComputerName = virtualMachineName,
+                        AdminUsername = "useradmin",
+                        AdminPassword = "userpassword1!"
+                    },
+                    HardwareProfile = new Profile2018Compute.Models.HardwareProfile
+                    {
+                        VmSize = "Standard_A1"
+                    }
+                };
+
+                if (imageReference == null)
+                {
+                    vmParameters.StorageProfile.ImageReference = linuxImageReference;
+                }
+                else
+                {
+                    vmParameters.StorageProfile.ImageReference = imageReference;
+                }
+
+                var virtualMachineTask = await client.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, virtualMachineName, vmParameters);
+                return virtualMachineTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Compute.Models.VirtualMachine>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.BadRequest,
+                        ReasonPhrase = ex.Message
+                    }
+                };
+            }
+        }
+
+        public async Task<AzureOperationResponse<Profile2018Compute.Models.Disk>> CreateDisk(
+            string resourceGroupName,
+            string diskName,
+            int sizeGb,
+            string location,
+            Profile2018Compute.Models.StorageAccountTypes? diskSku = null)
+        {
+            if (client == null)
+            {
+                return new AzureOperationResponse<Profile2018Compute.Models.Disk>
+                {
+                    Response = new HttpResponseMessage
+                    {
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                        ReasonPhrase = "Client is not instantiated"
+                    }
+                };
+            }
+
+            try
+            {
+                var diskParams = new Profile2018Compute.Models.Disk
+                {
+                    CreationData = new Profile2018Compute.Models.CreationData
+                    {
+                        CreateOption = Profile2018Compute.Models.DiskCreateOption.Empty,
+                    },
+                    Location = location,
+                    Sku = new Profile2018Compute.Models.DiskSku
+                    {
+                        Name = diskSku ?? Profile2018Compute.Models.StorageAccountTypes.StandardLRS
+                    },
+                    DiskSizeGB = sizeGb,
+                };
+                var diskTask = await client.Disks.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, diskName, diskParams);
+                return diskTask;
+            }
+            catch (Exception ex)
+            {
+                return new AzureOperationResponse<Profile2018Compute.Models.Disk>
                 {
                     Response = new HttpResponseMessage
                     {
