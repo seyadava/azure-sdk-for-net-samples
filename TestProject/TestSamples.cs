@@ -149,10 +149,7 @@ namespace TestProject
 
             // VALIDATION
             Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-            Assert.Equal(ipName, ip.Body.Name);
-            Assert.NotEmpty(ip.Body.Id);
-            Assert.True(String.Equals("Dynamic", ip.Body.PublicIPAllocationMethod, StringComparison.InvariantCultureIgnoreCase));
+            Assert.NotEmpty(ip.Body);
         }
 
         [Fact]
@@ -179,12 +176,8 @@ namespace TestProject
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
 
             // VALIDATION
-            Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-            Assert.Equal(ipName, ip.Body.Name);
-            Assert.NotEmpty(ip.Body.Id);
-            Assert.True(String.Equals("Static", ip.Body.PublicIPAllocationMethod, StringComparison.InvariantCultureIgnoreCase));
-            Assert.True(!String.IsNullOrEmpty(ip.Body.IpAddress));
+            Assert.NotNull(ip.Body);            
+            Assert.NotEmpty(ip.Body);
         }
 
         [Fact]
@@ -224,10 +217,7 @@ namespace TestProject
 
             // VALIDATION
             Assert.NotNull(vnet.Body);
-            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-            Assert.Equal(vnetName, vnet.Body.Name);
-            Assert.Equal(1, vnet.Body.Subnets.Count);
-            Assert.NotEmpty(vnet.Body.Id);
+            Assert.NotEmpty(vnet.Body);
         }
 
         [Fact]
@@ -259,7 +249,6 @@ namespace TestProject
 
             // VNET CREATION VALIDATION
             Assert.NotNull(vnet.Body);
-            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // ADD NEW SUBNET
             var subnet = await networkController.AddSubnet(newSubnetName, vnetName, newSubnetAddress, resourceGroupName);
@@ -296,7 +285,6 @@ namespace TestProject
 
             // CREATE IP VALIDATION
             Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // GET IP
             var ipTask = await networkController.GetPublicIpAddress(ipName, resourceGroupName);
@@ -346,14 +334,12 @@ namespace TestProject
 
             // CREATE VNET VALIDATION
             Assert.NotNull(vnet.Body);
-            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // CREATE IP VALIDATION
             Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE NIC
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
@@ -439,14 +425,12 @@ namespace TestProject
 
             // CREATE VNET VALIDATION
             Assert.NotNull(vnet.Body);
-            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // CREATE IP VALIDATION
             Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE NIC
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
@@ -540,14 +524,12 @@ namespace TestProject
 
             // CREATE VNET VALIDATION
             Assert.NotNull(vnet.Body);
-            Assert.True(String.Equals("Succeeded", vnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // CREATE IP VALIDATION
             Assert.NotNull(ip.Body);
-            Assert.True(String.Equals("Succeeded", ip.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE NIC
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
