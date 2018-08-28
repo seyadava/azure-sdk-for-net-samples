@@ -20,7 +20,7 @@
         private readonly Uri baseUri;
         private static Profile2018Compute.ComputeManagementClient client;
 
-        private Profile2018Compute.Models.ImageReference linuxImageReference = new Profile2018Compute.Models.ImageReference
+        private readonly Profile2018Compute.Models.ImageReference linuxImageReference = new Profile2018Compute.Models.ImageReference
         {
             Publisher = "Canonical",
             Offer = "UbuntuServer",

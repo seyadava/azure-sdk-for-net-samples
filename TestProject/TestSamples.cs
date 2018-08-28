@@ -462,6 +462,35 @@ namespace TestProject
         }
 
         [Fact]
+        public async Task CreateDataDiskTest()
+        {
+            // SET PARAMETERS
+            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
+            var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var diskName = Environment.GetEnvironmentVariable("AZURE_DISK_NAME");
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+           
+            // SET CONTROLLER
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var computerController = new ComputeController(new Uri(baseUriString), credentialsFromFile);
+
+            // CREATE RESOURCE GROUP
+            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
+
+            // CREATE RESOURCE GROUP VALIDATION
+            Assert.NotNull(resourceGroup.Body);
+            Assert.True(String.Equals("Succeeded", resourceGroup.Body.Properties.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+
+            // CREATE DISK
+            var disk = await computerController.CreateDisk(resourceGroupName, diskName, 1, location);
+
+            // CREATE DISK VALIDATION
+            Assert.NotNull(disk.Body);
+            Assert.True(String.Equals("Succeeded", disk.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        [Fact]
         public async Task CreateLinuxVirtualMachineWithManagedDiskTest()
         {
             // SET PARAMETERS
@@ -475,17 +504,12 @@ namespace TestProject
             var vnetAddresses = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESSES");
             var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
             var nicName = Environment.GetEnvironmentVariable("AZURE_NIC_NAME");
-            var storageNamePrefix = Environment.GetEnvironmentVariable("AZURE_STORAGENAME_PREFIX");
-            var storageEndpoint = Environment.GetEnvironmentVariable("AZURE_STORAGE_ENDPOINT");
             var diskName = Environment.GetEnvironmentVariable("AZURE_DISK_NAME");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
-            var storageAccountName = string.Format("{0}{1}", storageNamePrefix, new Random().Next(0, 99));
-            var storageAccountSku = Profile2018Storage.Models.SkuName.StandardLRS;
-
+            
             // SET CONTROLLER
             var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
-            var storageController = new StorageController(new Uri(baseUriString), credentialsFromFile);
             var computerController = new ComputeController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -524,13 +548,6 @@ namespace TestProject
             // CREATE NIC VALIDATION
             Assert.NotNull(nic.Body);
             Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
-
-            // CREATE STORAGE ACCOUNT
-            var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
-
-            // STORAGE ACCOUNT VALIDATION
-            Assert.NotNull(storageAccount.Body);
-            Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
 
             // CREATE DISK
             var disk = await computerController.CreateDisk(resourceGroupName, diskName, 1, location);
