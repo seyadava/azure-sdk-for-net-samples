@@ -3,7 +3,8 @@
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
-    
+
+    using Authorization;
     using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
     using Microsoft.Azure.Management.Fluent;
     using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
@@ -14,6 +15,7 @@
     {
         private const string ComponentName = "DotnetSDK_ResourceController";
         private readonly AzureCredentials azureCredential;
+        private readonly CustomLoginCredentials credential;
         private readonly string subscriotionId;
         private readonly string environment; 
         private readonly Uri baseUri;
@@ -29,7 +31,7 @@
             {
                 this.baseUri = baseUri;
                 this.azureCredential = credentials;
-                GetResourceGroupClient();
+                GetResourceGroupClient(this.azureCredential.DefaultSubscriptionId);
             }
             else
             {
@@ -42,17 +44,26 @@
             this.environment = environment;
         }
 
-        private void GetResourceGroupClient()
+        public ResourcesController(
+            Uri baseUri,
+            CustomLoginCredentials credentials,
+            string subscriptionId)
+        {
+            this.baseUri = baseUri;
+            this.credential = credentials;
+
+            GetResourceGroupClient(subscriotionId);
+            this.environment = "azurestack";
+        }
+
+        private void GetResourceGroupClient(string subscriptionId)
         {
             if (client != null)
             {
                 return;
             }
-            client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: azureCredential)
-            {
-                SubscriptionId = this.azureCredential.DefaultSubscriptionId
-            };
-            
+            client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: azureCredential);
+            client.SubscriptionId = subscriotionId;
             
             client.SetUserAgent(ComponentName);
         }

@@ -3,6 +3,7 @@ namespace TestProject
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Authorization;
     using Compute;
     using Network;
     using Resource;
@@ -23,8 +24,16 @@ namespace TestProject
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
+            var servicePrincipalId = "";
+            var servicePrincipalSecret = "";
+            var azureResourceId = "";
+            var tenantId = "";
+            var subscriptionId = "";
+            var creds = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            //var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), creds, subscriptionId);
 
             // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
