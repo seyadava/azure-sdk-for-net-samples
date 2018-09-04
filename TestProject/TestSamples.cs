@@ -27,30 +27,34 @@ namespace TestProject
             var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
             var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
             var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
-            var creds = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), creds, subscriptionId);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
 
             // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // VALIDATION
             Assert.NotNull(resourceGroup.Body);
-            Assert.NotEmpty(resourceGroup.Body);
+            Assert.NotEmpty(resourceGroup.Body.Id);
         }
 
         [Fact]
         public async Task DeleteResourceGroupTest()
         {
             // SET PARAMETERS
-            var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
 
             // DELETE RESOURCE GROUP
             var resourceGroup = await resourceController.DeleteResourceGroup(resourceGroupName);
@@ -66,11 +70,16 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
             var resourceProvidersName = Environment.GetEnvironmentVariable("AZURE_RESOURCEPROVIDERS");
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
 
             // REGISTER RESOURCE PROVIDER
             var providers = resourceProvidersName.Split(';');
@@ -92,10 +101,15 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
 
             // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
@@ -117,11 +131,17 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
             var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
 
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -145,11 +165,18 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -173,6 +200,13 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
             var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
             var subnetAddresses = Environment.GetEnvironmentVariable("AZURE_SUBNET_ADDRESSES");
@@ -180,7 +214,7 @@ namespace TestProject
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -213,6 +247,13 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
             var vnetAddressSpace = Environment.GetEnvironmentVariable("AZURE_VNET_ADDRESSES");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
@@ -220,7 +261,7 @@ namespace TestProject
             var newSubnetAddress = "10.0.16.0/24";
 
             // SET CONTROLLERS
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -253,11 +294,18 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
             // SET CONTROLLERS
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -288,6 +336,13 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
             var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
             var subnetAddresses = Environment.GetEnvironmentVariable("AZURE_SUBNET_ADDRESSES");
@@ -297,7 +352,7 @@ namespace TestProject
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -342,13 +397,20 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var storageNamePrefix = Environment.GetEnvironmentVariable("AZURE_STORAGENAME_PREFIX");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
             var storageAccountName = string.Format("{0}{1}", storageNamePrefix, new Random().Next(0, 99));
             var storageAccountSku = Profile2018Storage.Models.SkuName.StandardLRS;
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var storageController = new StorageController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -372,6 +434,13 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var vmName = Environment.GetEnvironmentVariable("AZURE_VM_NAME");
             var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
             var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
@@ -386,7 +455,7 @@ namespace TestProject
             var storageAccountSku = Profile2018Storage.Models.SkuName.StandardLRS;
 
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
             var storageController = new StorageController(new Uri(baseUriString), credentialsFromFile);
             var computerController = new ComputeController(new Uri(baseUriString), credentialsFromFile);
@@ -447,11 +516,18 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             var diskName = Environment.GetEnvironmentVariable("AZURE_DISK_NAME");
             var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
-           
+
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
             var computerController = new ComputeController(new Uri(baseUriString), credentialsFromFile);
 
             // CREATE RESOURCE GROUP
@@ -475,6 +551,11 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
             var vmName = Environment.GetEnvironmentVariable("AZURE_VM_NAME");
             var vnetName = Environment.GetEnvironmentVariable("AZURE_VNET_NAME");
             var subnetNames = Environment.GetEnvironmentVariable("AZURE_SUBNET_NAMES");
@@ -483,12 +564,15 @@ namespace TestProject
             var ipName = Environment.GetEnvironmentVariable("AZURE_IP_NAME");
             var nicName = Environment.GetEnvironmentVariable("AZURE_NIC_NAME");
             var diskName = Environment.GetEnvironmentVariable("AZURE_DISK_NAME");
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+
             
+            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
+
             // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
-            var networkController = new NetworkController(new Uri(baseUriString), credentialsFromFile);
-            var computerController = new ComputeController(new Uri(baseUriString), credentialsFromFile);
+            var resourceController = new ResourcesController(new Uri(baseUriString), credentials, subscriptionId);
+            var networkController = new NetworkController(new Uri(baseUriString), credentials, subscriptionId);
+            var computerController = new ComputeController(new Uri(baseUriString), credentials, subscriptionId);
 
             // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
