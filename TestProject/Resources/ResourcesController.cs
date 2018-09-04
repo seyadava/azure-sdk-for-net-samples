@@ -16,8 +16,8 @@
         private const string ComponentName = "DotnetSDK_ResourceController";
         private readonly AzureCredentials azureCredential;
         private readonly CustomLoginCredentials credential;
-        private readonly string subscriotionId;
-        private readonly string environment; 
+        private string subscriotionId;
+        private string environment; 
         private readonly Uri baseUri;
         private static Profile2018ResourceManager.ResourceManagementClient client;
         private static IAzure azure;
@@ -47,22 +47,30 @@
         public ResourcesController(
             Uri baseUri,
             CustomLoginCredentials credentials,
-            string subscriptionId)
+            string subsId)
         {
             this.baseUri = baseUri;
             this.credential = credentials;
-
-            GetResourceGroupClient(subscriotionId);
+            subscriotionId = subsId;
+            GetResourceGroupClient(subsId, credentials);
             this.environment = "azurestack";
         }
 
-        private void GetResourceGroupClient(string subscriptionId)
+        private void GetResourceGroupClient(string subscriptionId, CustomLoginCredentials creds = null)
         {
             if (client != null)
             {
                 return;
             }
-            client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: azureCredential);
+            if (creds == null)
+            {
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: azureCredential);
+            }
+            else
+            {
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: creds);
+            }
+            
             client.SubscriptionId = subscriotionId;
             
             client.SetUserAgent(ComponentName);
@@ -343,7 +351,7 @@
                     }
 
                     var provider = resourceGroupTask;
-                    if (String.Equals(provider.Body.RegistrationState, "registered", StringComparison.InvariantCultureIgnoreCase))
+                    if (String.Equals(provider.Body.RegistrationState, "registered", StringComparison.OrdinalIgnoreCase))
                     {
                         return provider;
                     }

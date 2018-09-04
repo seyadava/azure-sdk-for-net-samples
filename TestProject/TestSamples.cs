@@ -22,38 +22,15 @@ namespace TestProject
             var location = Environment.GetEnvironmentVariable("AZURE_LOCATION");
             var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
             var resourceGroupName = Environment.GetEnvironmentVariable("AZURE_RESOURCEGROUP");
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
-
-            var servicePrincipalId = "";
-            var servicePrincipalSecret = "";
-            var azureResourceId = "";
-            var tenantId = "";
-            var subscriptionId = "";
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var azureResourceId = Environment.GetEnvironmentVariable("AZURE_RESOURCE_ID");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
             var creds = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
 
             // SET CONTROLLER
-            //var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
             var resourceController = new ResourcesController(new Uri(baseUriString), creds, subscriptionId);
-
-            // CREATE RESOURCE GROUP
-            var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
-
-            // VALIDATION
-            Assert.NotNull(resourceGroup.Body);
-            Assert.NotEmpty(resourceGroup.Body);
-        }
-
-        [Fact]
-        public async Task CreateResourceGroupAzureTest()
-        {
-            // SET PARAMETERS
-            var location = "westus";
-            var baseUriString = Environment.GetEnvironmentVariable("AZURE_BASE_URL");
-            var resourceGroupName = "dotnet-hybrid-resourcegroup";
-            var credentialsFromFile = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
-
-            // SET CONTROLLER
-            var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile, "azure");
 
             // CREATE RESOURCE GROUP
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
@@ -96,7 +73,7 @@ namespace TestProject
             var resourceController = new ResourcesController(new Uri(baseUriString), credentialsFromFile);
 
             // REGISTER RESOURCE PROVIDER
-            var providers = resourceProvidersName.Split(";");
+            var providers = resourceProvidersName.Split(';');
 
             foreach(var resourceProviderName in providers)
             {
@@ -104,7 +81,7 @@ namespace TestProject
                 
                 // VALIDATION
                 Assert.NotNull(resourceProvider.Body);
-                Assert.True(String.Equals("registered", resourceProvider.Body.RegistrationState, StringComparison.InvariantCultureIgnoreCase));
+                Assert.Equal("registered", resourceProvider.Body.RegistrationState, ignoreCase: true);
             }
         }
 
@@ -213,9 +190,9 @@ namespace TestProject
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
-            var vnetAddressSpaces = vnetAddresses.Split(";");
-            var subNames = subnetNames.Split(";");
-            var suAddresses = subnetAddresses.Split(";");
+            var vnetAddressSpaces = vnetAddresses.Split(';');
+            var subNames = subnetNames.Split(';');
+            var suAddresses = subnetAddresses.Split(';');
             var subnets = new Dictionary<string, string>();
             for (int i = 0; i < subNames.Length; i++)
             {
@@ -253,7 +230,7 @@ namespace TestProject
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
-            var vnetAddressSpaces = vnetAddressSpace.Split(";");
+            var vnetAddressSpaces = vnetAddressSpace.Split(';');
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location);
 
             // VNET CREATION VALIDATION
@@ -264,7 +241,7 @@ namespace TestProject
 
             // SUBNET CREATION VALIDATION
             Assert.NotNull(subnet.Body);
-            Assert.True(String.Equals("Succeeded", subnet.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", subnet.Body.ProvisioningState, ignoreCase: true);
             Assert.Equal(newSubnetName, subnet.Body.Name);
             Assert.NotEmpty(subnet.Body.Id);
         }
@@ -330,9 +307,9 @@ namespace TestProject
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
-            var vnetAddressSpaces = vnetAddresses.Split(";");
-            var subNames = subnetNames.Split(";");
-            var suAddresses = subnetAddresses.Split(";");
+            var vnetAddressSpaces = vnetAddresses.Split(';');
+            var subNames = subnetNames.Split(';');
+            var suAddresses = subnetAddresses.Split(';');
             var subnets = new Dictionary<string, string>();
             for (int i = 0; i < subNames.Length; i++)
             {
@@ -355,7 +332,7 @@ namespace TestProject
 
             // VALIDATION
             Assert.NotNull(nic.Body);
-            Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", nic.Body.ProvisioningState, ignoreCase: true);
         }
 
         [Fact]
@@ -385,7 +362,7 @@ namespace TestProject
 
             // VALIDATION
             Assert.NotNull(storageAccount.Body);
-            Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", storageAccount.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
 
         [Fact]
@@ -421,9 +398,9 @@ namespace TestProject
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
-            var vnetAddressSpaces = vnetAddresses.Split(";");
-            var subNames = subnetNames.Split(";");
-            var suAddresses = subnetAddresses.Split(";");
+            var vnetAddressSpaces = vnetAddresses.Split(';');
+            var subNames = subnetNames.Split(';');
+            var suAddresses = subnetAddresses.Split(';');
             var subnets = new Dictionary<string, string>();
             for (int i = 0; i < subNames.Length; i++)
             {
@@ -446,21 +423,21 @@ namespace TestProject
 
             // CREATE NIC VALIDATION
             Assert.NotNull(nic.Body);
-            Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", nic.Body.ProvisioningState, ignoreCase: true);
 
             // CREATE STORAGE ACCOUNT
             var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
 
             // STORAGE ACCOUNT VALIDATION
             Assert.NotNull(storageAccount.Body);
-            Assert.True(String.Equals("Succeeded", storageAccount.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", storageAccount.Body.ProvisioningState.ToString(), ignoreCase: true);
 
             // CREATE VM
             var vm = await computerController.CreateVirtialMachine(resourceGroupName, vmName, storageAccountName, storageEndpoint, nic.Body.Id, location);
 
             // VALIDATION
             Assert.NotNull(vm.Body);
-            Assert.True(String.Equals("Succeeded", vm.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", vm.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
 
         [Fact]
@@ -488,7 +465,7 @@ namespace TestProject
 
             // CREATE DISK VALIDATION
             Assert.NotNull(disk.Body);
-            Assert.True(String.Equals("Succeeded", disk.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", disk.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
 
         [Fact]
@@ -520,9 +497,9 @@ namespace TestProject
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
-            var vnetAddressSpaces = vnetAddresses.Split(";");
-            var subNames = subnetNames.Split(";");
-            var suAddresses = subnetAddresses.Split(";");
+            var vnetAddressSpaces = vnetAddresses.Split(';');
+            var subNames = subnetNames.Split(';');
+            var suAddresses = subnetAddresses.Split(';');
             var subnets = new Dictionary<string, string>();
             for (int i = 0; i < subNames.Length; i++)
             {
@@ -545,21 +522,21 @@ namespace TestProject
 
             // CREATE NIC VALIDATION
             Assert.NotNull(nic.Body);
-            Assert.True(String.Equals("Succeeded", nic.Body.ProvisioningState, StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", nic.Body.ProvisioningState, ignoreCase: true);
 
             // CREATE DISK
             var disk = await computerController.CreateDisk(resourceGroupName, diskName, 1, location);
 
             // CREATE DISK VALIDATION
             Assert.NotNull(disk.Body);
-            Assert.True(String.Equals("Succeeded", disk.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", disk.Body.ProvisioningState.ToString(), ignoreCase: true);
 
             // CREATE VM
             var vm = await computerController.CreateVirtialMachineWithManagedDisk(resourceGroupName, vmName, nic.Body.Id, disk.Body.Id, location);
 
             // VALIDATION
             Assert.NotNull(vm.Body);
-            Assert.True(String.Equals("Succeeded", vm.Body.ProvisioningState.ToString(), StringComparison.InvariantCultureIgnoreCase));
+            Assert.Equal("Succeeded", vm.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
     }
 }

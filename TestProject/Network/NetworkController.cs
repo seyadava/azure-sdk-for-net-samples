@@ -79,7 +79,7 @@
             string location,
             string allocationMethod = "Dynamic",
             string publicIpAddress = null,
-            IList<(string, string)> tags = null)
+            IList<Tuple<string, string>> tags = null)
         {
             if (client == null)
             {
@@ -98,7 +98,7 @@
                 Location = location,
             };
 
-            if (String.Equals("dynamic", allocationMethod, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Equals("dynamic", allocationMethod, StringComparison.OrdinalIgnoreCase))
             {
                 allocationMethod = Profile2018Network.Models.IPAllocationMethod.Dynamic;
             }
@@ -112,7 +112,7 @@
             }
             publicIp.PublicIPAllocationMethod = allocationMethod;
 
-            foreach (var tag in tags ?? new List<(string, string)>())
+            foreach (var tag in tags ?? new List<Tuple<string, string>>())
             {
                 publicIp.Tags.Add(tag.Item1, tag.Item2);
             }
@@ -147,7 +147,7 @@
             string location,
             string allocationMethod = "Dynamic",
             string publicIpAddress = null,
-            IList<(string, string)> tags = null)
+            IList<Tuple<string, string>> tags = null)
         {
             if (azure == null)
             {
@@ -167,7 +167,7 @@
                     .WithRegion(location)
                     .WithExistingResourceGroup(resourceGroupName);
 
-                if (String.Equals("dynamic", allocationMethod, StringComparison.InvariantCultureIgnoreCase))
+                if (String.Equals("dynamic", allocationMethod, StringComparison.OrdinalIgnoreCase))
                 {
                     ip = ip.WithDynamicIP(); 
                 }
@@ -176,7 +176,7 @@
                     ip = ip.WithStaticIP();
                 }
 
-                foreach (var tag in tags ?? new List<(string, string)>())
+                foreach (var tag in tags ?? new List<Tuple<string, string>>())
                 {
                     ip = ip.WithTag(tag.Item1, tag.Item2);
                 }
@@ -207,7 +207,7 @@
             string location,
             string allocationMethod = "Dynamic",
             string publicIpAddress = null,
-            IList<(string, string)> tags = null)
+            IList<Tuple<string, string>> tags = null)
         {
             if (String.Equals(environment, "azurestack", StringComparison.CurrentCultureIgnoreCase))
             {
@@ -532,7 +532,7 @@
             string ipName,
             string location,
             string allocationMethod = "Dynamic",
-            IList<(string, string)> tags = null)
+            IList<Tuple<string, string>> tags = null)
         {
             if (client == null)
             {
@@ -581,7 +581,7 @@
                     }
                 };
 
-                foreach (var tag in tags ?? new List<(string, string)>())
+                foreach (var tag in tags ?? new List<Tuple<string, string>>())
                 {
                     var t = tag.Item1;
 
