@@ -39,20 +39,5 @@
             }
             AuthenticationToken = result.AccessToken;
         }
-        public override async Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            if (request == null)
-            {
-                throw new ArgumentNullException("request");
-            }
-            if (AuthenticationToken == null)
-            {
-                throw new InvalidOperationException("Token Provider Cannot Be Null");
-            }
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", AuthenticationToken);
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            await base.ProcessHttpRequestAsync(request, cancellationToken);
-
-        }
     }
 }
