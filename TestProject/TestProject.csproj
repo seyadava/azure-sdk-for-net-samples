@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage" Version="0.9.0-preview" />
     <PackageReference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Subscription" Version="0.9.0-preview" />
     <PackageReference Include="Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Websites" Version="0.9.0-preview" />
+    <PackageReference Include="Microsoft.Azure.Management.Profiles.profile_2017_03_09.Compute" Version="0.9.0-preview" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" Version="11.0.50727.1" />
