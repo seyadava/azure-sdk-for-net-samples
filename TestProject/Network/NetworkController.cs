@@ -19,34 +19,53 @@
     {
         private const string ComponentName = "DotnetSDK_NetworkController";
         private readonly CustomLoginCredentials customCredential;
+        private readonly AzureCredentials azureCredential;
+        private readonly string subscriotionId;
         private readonly Uri baseUri;
         private static Profile2018Network.NetworkManagementClient client;
-        private static IAzure azure;
+
+        public NetworkController(
+             Uri baseUri,
+            CustomLoginCredentials credentials,
+            string subscriptionIdentifier)
+        {
+            this.baseUri = baseUri;
+            this.customCredential = credentials;
+            this.subscriotionId = subscriptionIdentifier;
+
+            GetNetworkClient();
+        }
 
         public NetworkController(
             Uri baseUri,
-            CustomLoginCredentials credentials,
-            string subsId)
+            AzureCredentials credentials)
         {
-            
-                this.baseUri = baseUri;
-                this.customCredential = credentials;
+            this.baseUri = baseUri;
+            this.azureCredential = credentials;
 
-                GetNetworkClient(subsId);
+            GetNetworkClient();
         }
 
-        private void GetNetworkClient(string subscriptionId)
+        private void GetNetworkClient()
         {
             if (client != null)
             {
                 return;
             }
-            
-            client = new Profile2018Network.NetworkManagementClient(baseUri: baseUri, credentials: customCredential)
+            if (customCredential != null)
             {
-                SubscriptionId = subscriptionId
-            };
-            
+                client = new Profile2018Network.NetworkManagementClient(baseUri: baseUri, credentials: customCredential)
+                {
+                    SubscriptionId = this.subscriotionId
+                };
+            }
+            else
+            {
+                client = new Profile2018Network.NetworkManagementClient(baseUri: baseUri, credentials: azureCredential)
+                {
+                    SubscriptionId = this.azureCredential.DefaultSubscriptionId
+                };
+            }
             client.SetUserAgent(ComponentName);
         }
 

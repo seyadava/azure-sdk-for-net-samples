@@ -36,6 +36,7 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
             Assert.NotEmpty(resourceGroup.Body.Id);
         }
@@ -87,8 +88,9 @@ namespace TestProject
             foreach(var resourceProviderName in providers)
             {
                 var resourceProvider = await resourceController.RegisterResourceProvider(resourceProviderName);
-                
+
                 // VALIDATION
+                Assert.Equal("OK", resourceProvider.Response.ReasonPhrase, ignoreCase: true);
                 Assert.NotNull(resourceProvider.Body);
                 Assert.Equal("registered", resourceProvider.Body.RegistrationState, ignoreCase: true);
             }
@@ -115,12 +117,14 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CHECK RESOURCE GROUP
             var resourceGroupExistance = await resourceController.CheckResourceGroupExistance(resourceGroupName);
 
             // CHECK RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroupExistance.Response.ReasonPhrase, ignoreCase: true);
             Assert.True(resourceGroupExistance.Body);
         }
 
@@ -147,12 +151,14 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // VALIDATION
+            Assert.Equal("OK", ip.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ip.Body);
             Assert.NotEmpty(ip.Body.Id);
         }
@@ -180,12 +186,14 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
             
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
 
             // VALIDATION
+            Assert.Equal("OK", ip.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ip.Body);            
             Assert.NotEmpty(ip.Body.Id);
         }
@@ -216,6 +224,7 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
@@ -231,6 +240,7 @@ namespace TestProject
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
 
             // VALIDATION
+            Assert.Equal("OK", vnet.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vnet.Body);
             Assert.NotEmpty(vnet.Body.Id);
         }
@@ -261,6 +271,7 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // RESOURCE GROUP CREATION VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
@@ -268,12 +279,14 @@ namespace TestProject
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location);
 
             // VNET CREATION VALIDATION
+            Assert.Equal("OK", vnet.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vnet.Body);
 
             // ADD NEW SUBNET
             var subnet = await networkController.AddSubnet(newSubnetName, vnetName, newSubnetAddress, resourceGroupName);
 
             // SUBNET CREATION VALIDATION
+            Assert.Equal("OK", subnet.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(subnet.Body);
             Assert.Equal("Succeeded", subnet.Body.ProvisioningState, ignoreCase: true);
             Assert.Equal(newSubnetName, subnet.Body.Name);
@@ -303,18 +316,21 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // RESOURCE GROUP CREATION VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location, "Static");
 
             // CREATE IP VALIDATION
+            Assert.Equal("OK", ip.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ip.Body);
 
             // GET IP
             var ipTask = await networkController.GetPublicIpAddress(ipName, resourceGroupName);
 
             // VALIDATION
+            Assert.Equal("OK", ipTask.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ipTask.Body);
             Assert.Equal(ipName, ipTask.Body.Name);
             Assert.NotEmpty(ipTask.Body.Id);
@@ -348,6 +364,7 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
@@ -363,18 +380,21 @@ namespace TestProject
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
 
             // CREATE VNET VALIDATION
+            Assert.Equal("OK", vnet.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vnet.Body);
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // CREATE IP VALIDATION
+            Assert.Equal("OK", ip.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ip.Body);
 
             // CREATE NIC
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
 
             // VALIDATION
+            Assert.Equal("OK", nic.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(nic.Body);
             Assert.Equal("Succeeded", nic.Body.ProvisioningState, ignoreCase: true);
         }
@@ -404,12 +424,14 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
             
             // CREATE STORAGE ACCOUNT
             var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
 
             // VALIDATION
+            Assert.Equal("OK", storageAccount.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(storageAccount.Body);
             Assert.Equal("Succeeded", storageAccount.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
@@ -449,6 +471,7 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
@@ -464,18 +487,21 @@ namespace TestProject
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
 
             // CREATE VNET VALIDATION
+            Assert.Equal("OK", vnet.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vnet.Body);
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // CREATE IP VALIDATION
+            Assert.Equal("OK", ip.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ip.Body);
 
             // CREATE NIC
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
 
             // CREATE NIC VALIDATION
+            Assert.Equal("OK", nic.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(nic.Body);
             Assert.Equal("Succeeded", nic.Body.ProvisioningState, ignoreCase: true);
 
@@ -483,6 +509,7 @@ namespace TestProject
             var storageAccount = await storageController.CreateStorageAccount(storageAccountName, resourceGroupName, location, storageAccountSku);
 
             // STORAGE ACCOUNT VALIDATION
+            Assert.Equal("OK", storageAccount.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(storageAccount.Body);
             Assert.Equal("Succeeded", storageAccount.Body.ProvisioningState.ToString(), ignoreCase: true);
 
@@ -490,6 +517,7 @@ namespace TestProject
             var vm = await computerController.CreateVirtialMachine(resourceGroupName, vmName, storageAccountName, storageEndpoint, nic.Body.Id, location);
 
             // VALIDATION
+            Assert.Equal("OK", vm.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vm.Body);
             Assert.Equal("Succeeded", vm.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
@@ -517,12 +545,14 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE DISK
             var disk = await computerController.CreateDisk(resourceGroupName, diskName, 1, location);
 
             // CREATE DISK VALIDATION
+            Assert.Equal("OK", disk.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(disk.Body);
             Assert.Equal("Succeeded", disk.Body.ProvisioningState.ToString(), ignoreCase: true);
         }
@@ -558,6 +588,7 @@ namespace TestProject
             var resourceGroup = await resourceController.CreateResourceGroup(resourceGroupName, location);
 
             // CREATE RESOURCE GROUP VALIDATION
+            Assert.Equal("OK", resourceGroup.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(resourceGroup.Body);
 
             // CREATE VNET
@@ -573,18 +604,21 @@ namespace TestProject
             var vnet = await networkController.CreateVirtualNetwork(vnetName, vnetAddressSpaces, resourceGroupName, location, subnets);
 
             // CREATE VNET VALIDATION
+            Assert.Equal("OK", vnet.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vnet.Body);
 
             // CREATE IP
             var ip = await networkController.CreatePublicIpAddress(ipName, resourceGroupName, location);
 
             // CREATE IP VALIDATION
+            Assert.Equal("OK", ip.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(ip.Body);
 
             // CREATE NIC
             var nic = await networkController.CreateNetworkInterface(nicName, resourceGroupName, vnetName, subNames[0], ipName, location);
 
             // CREATE NIC VALIDATION
+            Assert.Equal("OK", nic.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(nic.Body);
             Assert.Equal("Succeeded", nic.Body.ProvisioningState, ignoreCase: true);
 
@@ -592,6 +626,7 @@ namespace TestProject
             var disk = await computerController.CreateDisk(resourceGroupName, diskName, 1, location);
 
             // CREATE DISK VALIDATION
+            Assert.Equal("OK", disk.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(disk.Body);
             Assert.Equal("Succeeded", disk.Body.ProvisioningState.ToString(), ignoreCase: true);
 
@@ -599,6 +634,7 @@ namespace TestProject
             var vm = await computerController.CreateVirtialMachineWithManagedDisk(resourceGroupName, vmName, nic.Body.Id, disk.Body.Id, location);
 
             // VALIDATION
+            Assert.Equal("OK", vm.Response.ReasonPhrase, ignoreCase: true);
             Assert.NotNull(vm.Body);
             Assert.Equal("Succeeded", vm.Body.ProvisioningState.ToString(), ignoreCase: true);
         }

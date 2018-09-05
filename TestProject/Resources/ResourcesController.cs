@@ -14,32 +14,54 @@
     public class ResourcesController
     {
         private const string ComponentName = "DotnetSDK_ResourceController";
-        private readonly CustomLoginCredentials credential;
+        private readonly CustomLoginCredentials customCredential;
+        private readonly AzureCredentials azureCredential;
+        private readonly string subscriotionId;
         private readonly Uri baseUri;
         private static Profile2018ResourceManager.ResourceManagementClient client;
-        private static IAzure azure;
 
         public ResourcesController(
             Uri baseUri,
             CustomLoginCredentials credentials,
-            string subsId)
+            string subscriptionIdentifier)
         {
             this.baseUri = baseUri;
-            this.credential = credentials;
-            GetResourceGroupClient(subsId);
+            this.customCredential = credentials;
+            this.subscriotionId = subscriptionIdentifier;
+
+            GetResourceGroupClient();
         }
 
-        private void GetResourceGroupClient(string subscriptionId)
+        public ResourcesController(
+            Uri baseUri,
+            AzureCredentials credentials)
+        {
+            this.baseUri = baseUri;
+            this.azureCredential = credentials;
+
+            GetResourceGroupClient();
+        }
+
+        private void GetResourceGroupClient()
         {
             if (client != null)
             {
                 return;
             }
-            client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: this.credential)
+            if (customCredential != null)
             {
-                SubscriptionId = subscriptionId
-            };
-
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: customCredential)
+                {
+                    SubscriptionId = this.subscriotionId
+                };
+            }
+            else
+            {
+                client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: azureCredential)
+                {
+                    SubscriptionId = this.azureCredential.DefaultSubscriptionId
+                };
+            }
             client.SetUserAgent(ComponentName);
         }
 
