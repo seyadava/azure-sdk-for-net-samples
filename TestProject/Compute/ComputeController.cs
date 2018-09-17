@@ -7,7 +7,6 @@
 
     using Authorization;
     using Profile2018Compute = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Compute;
-    using latest = Microsoft.Azure.Management.Fluent;
     using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
     using Microsoft.Rest.Azure;
 
