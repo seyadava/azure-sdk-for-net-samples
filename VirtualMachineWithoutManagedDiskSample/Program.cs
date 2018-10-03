@@ -8,6 +8,7 @@
     using Authorization;
     using Profile2018Compute = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Compute;
     using Profile2018Network = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Network;
+    using Profile2018Storage = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage;
     using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
 
     using Microsoft.Rest.Azure;
@@ -38,7 +39,8 @@
             var vnetAddresses = "10.0.0.0/16";
             var ipName = "ipName";
             var nicName = "networkInterfaceName";
-            var diskName = "diskName";
+            var storagePrefix = "storagePrefix";
+            var storageAccountName = "storageAccountName";
 
             Console.WriteLine("Get credential token");
             var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
@@ -150,6 +152,27 @@
                 Console.WriteLine(String.Format("Could not create network interface. Exception: {0}", ex.Message));
             }
 
+            var storage = new Profile2018Storage.Models.StorageAccount();
+            var storageClient = GetStorageClient(new Uri(baseUriString), credentials, subscriptionId);
+            try
+            {
+                Console.WriteLine("Create storage account");
+                var storageProperties = new Profile2018Storage.Models.StorageAccountCreateParameters
+                {
+                    Location = location,
+                    Kind = Profile2018Storage.Models.Kind.Storage,
+                    Sku = new Profile2018Storage.Models.Sku(Profile2018Storage.Models.SkuName.StandardLRS)
+                };
+
+                var storageTask = storageClient.StorageAccounts.CreateWithHttpMessagesAsync(resourceGroupName, storageAccountName, storageProperties);
+                storageTask.Wait();
+                storage = storageTask.Result.Body;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not create network interface. Exception: {0}", ex.Message));
+            }
+
             try
             {
                 Console.WriteLine("Instantiate compute client");
@@ -165,7 +188,7 @@
                         {
                             new Profile2018Compute.Models.NetworkInterfaceReference
                             {
-                                Id = nicId,
+                                Id = nic.Id,
                                 Primary = true
                             }
                         }
@@ -177,7 +200,7 @@
                             Name = "osDisk",
                             Vhd = new Profile2018Compute.Models.VirtualHardDisk
                             {
-                                Uri = string.Format(vhdURItemplate, storageAccountName, storagePrefix, virtualMachineName)
+                                Uri = string.Format(vhdURItemplate, storageAccountName, storagePrefix, vmName)
                             },
                             CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.FromImage
                         },
@@ -191,7 +214,7 @@
                     },
                     OsProfile = new Profile2018Compute.Models.OSProfile
                     {
-                        ComputerName = virtualMachineName,
+                        ComputerName = vmName,
                         AdminUsername = "useradmin",
                         AdminPassword = "userpassword1!"
                     },
@@ -238,6 +261,17 @@
         private static Profile2018Network.NetworkManagementClient GetNetworkClient(Uri baseUri, CustomLoginCredentials customCredential, string subscriptionId)
         {
             var client = new Profile2018Network.NetworkManagementClient(baseUri: baseUri, credentials: customCredential)
+            {
+                SubscriptionId = subscriptionId
+            };
+            client.SetUserAgent(ComponentName);
+
+            return client;
+        }
+
+        private static Profile2018Storage.StorageManagementClient GetStorageClient(Uri baseUri, CustomLoginCredentials customCredential, string subscriptionId)
+        {
+            var client = new Profile2018Storage.StorageManagementClient(baseUri: baseUri, credentials: customCredential)
             {
                 SubscriptionId = subscriptionId
             };
