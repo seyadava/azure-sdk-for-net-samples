@@ -1,4 +1,4 @@
-﻿namespace ComputeSample
+﻿namespace VirtualMachineWithoutManagedDiskSample
 {
     using System;
     using System.Collections.Generic;
@@ -154,27 +154,9 @@
             {
                 Console.WriteLine("Instantiate compute client");
                 var computeClient = GetComputeClient(new Uri(baseUriString), credentials, subscriptionId);
-                var diskProperties = new Profile2018Compute.Models.Disk
-                {
-                    CreationData = new Profile2018Compute.Models.CreationData
-                    {
-                        CreateOption = Profile2018Compute.Models.DiskCreateOption.Empty,
-                    },
-                    Location = location,
-                    Sku = new Profile2018Compute.Models.DiskSku
-                    {
-                        Name = Profile2018Compute.Models.StorageAccountTypes.StandardLRS
-                    },
-                    DiskSizeGB = 1,
-                };
-                var diskTask = computeClient.Disks.CreateOrUpdateWithHttpMessagesAsync(
-                    resourceGroupName,
-                    diskName,
-                    diskProperties);
-                diskTask.Wait();
-
+                
                 Console.WriteLine("Create virtual machine");
-                var vmProperties = new Profile2018Compute.Models.VirtualMachine
+                var vmParameters = new Profile2018Compute.Models.VirtualMachine
                 {
                     Location = location,
                     NetworkProfile = new Profile2018Compute.Models.NetworkProfile
@@ -183,28 +165,20 @@
                         {
                             new Profile2018Compute.Models.NetworkInterfaceReference
                             {
-                                Id = nic.Id,
+                                Id = nicId,
                                 Primary = true
                             }
                         }
                     },
                     StorageProfile = new Profile2018Compute.Models.StorageProfile
                     {
-                        DataDisks = new List<Profile2018Compute.Models.DataDisk>
-                        {
-                            new Profile2018Compute.Models.DataDisk
-                            {
-                                CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.Attach,
-                                ManagedDisk = new Profile2018Compute.Models.ManagedDiskParameters
-                                {
-                                    StorageAccountType = Profile2018Compute.Models.StorageAccountTypes.StandardLRS,
-                                    Id = diskTask.Result.Body.Id
-                                }
-                            }
-                        },
                         OsDisk = new Profile2018Compute.Models.OSDisk
                         {
                             Name = "osDisk",
+                            Vhd = new Profile2018Compute.Models.VirtualHardDisk
+                            {
+                                Uri = string.Format(vhdURItemplate, storageAccountName, storagePrefix, virtualMachineName)
+                            },
                             CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.FromImage
                         },
                         ImageReference = new Profile2018Compute.Models.ImageReference
@@ -217,7 +191,7 @@
                     },
                     OsProfile = new Profile2018Compute.Models.OSProfile
                     {
-                        ComputerName = vmName,
+                        ComputerName = virtualMachineName,
                         AdminUsername = "useradmin",
                         AdminPassword = "userpassword1!"
                     },
@@ -230,7 +204,7 @@
                 var vmTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(
                     resourceGroupName,
                     vmName,
-                    vmProperties);
+                    vmParameters);
                 vmTask.Wait();
             }
             catch (Exception ex)
