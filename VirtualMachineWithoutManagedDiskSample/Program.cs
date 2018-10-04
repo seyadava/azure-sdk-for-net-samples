@@ -11,27 +11,24 @@
     using Profile2018Storage = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage;
     using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
 
-    using Microsoft.Rest.Azure;
+    //using Microsoft.Rest.Azure;
 
     class Program
     {
         private const string ComponentName = "DotnetSDK";
         private const string vhdURItemplate = "https://{0}.blob.{1}/vhds/{2}.vhd";
-        private readonly CustomLoginCredentials customCredential;
-        private readonly string subscriotionId;
-        private readonly Uri baseUri;
 
         static void Main(string[] args)
         {
             //Set variables
-            var location = "location";
-            var baseUriString = "baseUriString";
-            var resourceGroupName = "resourceGroupName";
-            var servicePrincipalId = "servicePrincipalID";
-            var servicePrincipalSecret = "servicePrincipalSecret";
-            var azureResourceId = "resourceID";
-            var tenantId = "tenantID";
-            var subscriptionId = "subscriptionID";
+            var location = "redmond";
+            var baseUriString = "https://management.redmond.ext-n22r1002.masd.stbtest.microsoft.com/";
+            var resourceGroupName = "testrg";
+            var servicePrincipalId = "6656e01b-b5ce-43be-99b6-2f109e255343";
+            var servicePrincipalSecret = "e69Tve6T4XvtQUrvFXVR1B5X4ZYBS+QNY3zKQ5s2JHA=";
+            var azureResourceId = "https://management.azurestackci07.onmicrosoft.com/29ae84a9-c761-4678-8cf6-0c28b6952a41";
+            var tenantId = "2b3697e6-a7a2-4cdd-a3d4-f4ef6505cd4f";
+            var subscriptionId = "7b5e2e72-d4ca-49de-b45f-b814d2b3aa07";
             var vmName = "virtualMachineName";
             var vnetName = "virtualNetworkName";
             var subnetName = "subnetName";
@@ -39,8 +36,8 @@
             var vnetAddresses = "10.0.0.0/16";
             var ipName = "ipName";
             var nicName = "networkInterfaceName";
-            var storagePrefix = "storagePrefix";
-            var storageAccountName = "storageAccountName";
+            var storagePrefix = "redmond.ext-n22r1002.masd.stbtest.microsoft.com";
+            var storageAccountName = "storageaccountt";
 
             Console.WriteLine("Get credential token");
             var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
