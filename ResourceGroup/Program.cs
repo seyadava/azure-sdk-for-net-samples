@@ -110,7 +110,6 @@
             }
         }
 
-
         static ActiveDirectoryServiceSettings getActiveDirectoryServiceSettings(string armEndpoint)
         {
             var settings = new ActiveDirectoryServiceSettings();
@@ -158,9 +157,9 @@
             runSample(tenantId, subscriptionId, servicePrincipalId, servicePrincipalSecret, location, baseUriString);
         }
 
-        private static Profile2018ResourceManager.ResourceManagementClient GetResourceManagementClient(Uri baseUri, ServiceClientCredentials customCredential, string subscriptionId)
+        private static Profile2018ResourceManager.ResourceManagementClient GetResourceManagementClient(Uri baseUri, ServiceClientCredentials credential, string subscriptionId)
         {
-            var client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: customCredential)
+            var client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: credential)
             {
                 SubscriptionId = subscriptionId
             };

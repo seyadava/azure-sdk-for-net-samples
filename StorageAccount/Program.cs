@@ -2,40 +2,37 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    using Authorization;
     using Profile2018ResourceManager = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.ResourceManager;
     using Profile2018Storage = Microsoft.Azure.Management.Profiles.hybrid_2018_03_01.Storage;
+    using Microsoft.Azure.Management.ResourceManager.Fluent;
+    using Microsoft.Rest;
+    using Microsoft.Rest.Azure.Authentication;
+    using Newtonsoft.Json.Linq;
 
     class Program
     {
-        private const string ComponentName = "DotnetSDK";
+        private const string ComponentName = "DotnetSDKStorageManagementSample";
 
-        static void Main(string[] args)
+        static void runSample(string tenantId, string subscriptionId, string servicePrincipalId, string servicePrincipalSecret, string location, string armEndpoint)
         {
-            //Set variables
-            var location = "location";
-            var baseUriString = "baseUriString";
-            var resourceGroupName = "resourceGroupOneName";
-            var servicePrincipalId = "servicePrincipalID";
-            var servicePrincipalSecret = "servicePrincipalSecret";
-            var azureResourceId = "resourceID";
-            var tenantId = "tenantID";
-            var subscriptionId = "subscriptionID";
-            var storageAccountName = "storageAccountOne";
-            var storageAccount2Name = "storageAccountTwo";
-            
+            var resourceGroupName = SdkContext.RandomResourceName("rgDotnetSdk", 24);
+            var storageAccountName = SdkContext.RandomResourceName("storageaccount", 18);
+            var storageAccount2Name = SdkContext.RandomResourceName("storageaccount", 18);
             Console.WriteLine("Get credential token");
-            var credentials = new CustomLoginCredentials(servicePrincipalId, servicePrincipalSecret, azureResourceId, tenantId);
+            var adSettings = getActiveDirectoryServiceSettings(armEndpoint);
+            var credentials = ApplicationTokenProvider.LoginSilentAsync(tenantId, servicePrincipalId, servicePrincipalSecret, adSettings).GetAwaiter().GetResult();
 
             Console.WriteLine("Instantiate resource management client");
-            var rmClient = GetResourceManagementClient(new Uri(baseUriString), credentials, subscriptionId);
+            var rmClient = GetResourceManagementClient(new Uri(armEndpoint), credentials, subscriptionId);
 
             Console.WriteLine("Instantiate storage account client");
-            var storageClient = GetStorageClient(new Uri(baseUriString), credentials, subscriptionId);
+            var storageClient = GetStorageClient(new Uri(armEndpoint), credentials, subscriptionId);
 
             // Create resource group.
             try
@@ -88,9 +85,10 @@
 
                 Console.WriteLine("Regenerating first storage account access key");
                 var storageAccountRegenerateTask = storageClient.StorageAccounts.RegenerateKeyWithHttpMessagesAsync(
-                    resourceGroupName, 
-                    storageAccountName, 
-                    new Profile2018Storage.Models.StorageAccountRegenerateKeyParameters{
+                    resourceGroupName,
+                    storageAccountName,
+                    new Profile2018Storage.Models.StorageAccountRegenerateKeyParameters
+                    {
                         KeyName = storageAccountKeysResults[0].KeyName
                     });
                 storageAccountRegenerateTask.Wait();
@@ -137,7 +135,7 @@
                 });
 
                 storageAccountUpdateTask.Wait();
-                var status = storageAccountUpdateTask.Result?.Body?.Encryption?.Services?.Blob?.Enabled.Value ;
+                var status = storageAccountUpdateTask.Result?.Body?.Encryption?.Services?.Blob?.Enabled.Value;
                 if (status.HasValue && status.Value)
                 {
                     Console.WriteLine(String.Format("Encryption status of the service  {0} is enabled", storageAccount2Name));
@@ -174,7 +172,7 @@
             // Delete storage accounts.
             try
             {
-                foreach(var storageAccount in storageAccountResults)
+                foreach (var storageAccount in storageAccountResults)
                 {
                     Console.WriteLine(String.Format("Deleting a storage account with name: {0}", storageAccount.Name));
 
@@ -188,9 +186,56 @@
             }
         }
 
-        private static Profile2018Storage.StorageManagementClient GetStorageClient(Uri baseUri, CustomLoginCredentials customCredential, string subscriptionId)
+        static ActiveDirectoryServiceSettings getActiveDirectoryServiceSettings(string armEndpoint)
         {
-            var client = new Profile2018Storage.StorageManagementClient(baseUri: baseUri, credentials: customCredential)
+            var settings = new ActiveDirectoryServiceSettings();
+
+            try
+            {
+                var request = (HttpWebRequest)HttpWebRequest.Create(string.Format("{0}/metadata/endpoints?api-version=1.0", armEndpoint));
+                request.Method = "GET";
+                request.UserAgent = ComponentName;
+                request.Accept = "application/xml";
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                    {
+                        var rawResponse = sr.ReadToEnd();
+                        var deserialized = JObject.Parse(rawResponse);
+                        var authenticationObj = deserialized.GetValue("authentication").Value<JObject>();
+                        var loginEndpoint = authenticationObj.GetValue("loginEndpoint").Value<string>();
+                        var audiencesObj = authenticationObj.GetValue("audiences").Value<JArray>();
+
+                        settings.AuthenticationEndpoint = new Uri(loginEndpoint);
+                        settings.TokenAudience = new Uri(audiencesObj[0].Value<string>());
+                        settings.ValidateAuthority = loginEndpoint.TrimEnd('/').EndsWith("/adfs", StringComparison.OrdinalIgnoreCase) ? false : true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not get AD service settings. Exception: {0}", ex.Message));
+            }
+            return settings;
+        }
+
+        static void Main(string[] args)
+        {
+            //Set variables
+            var location = Environment.GetEnvironmentVariable("RESOURCE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("ARM_ENDPOINT");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+
+            runSample(tenantId, subscriptionId, servicePrincipalId, servicePrincipalSecret, location, baseUriString);
+        }
+
+        private static Profile2018Storage.StorageManagementClient GetStorageClient(Uri baseUri, ServiceClientCredentials credential, string subscriptionId)
+        {
+            var client = new Profile2018Storage.StorageManagementClient(baseUri: baseUri, credentials: credential)
             {
                 SubscriptionId = subscriptionId
             };
@@ -199,9 +244,9 @@
             return client;
         }
 
-        private static Profile2018ResourceManager.ResourceManagementClient GetResourceManagementClient(Uri baseUri, CustomLoginCredentials customCredential, string subscriptionId)
+        private static Profile2018ResourceManager.ResourceManagementClient GetResourceManagementClient(Uri baseUri, ServiceClientCredentials credential, string subscriptionId)
         {
-            var client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: customCredential)
+            var client = new Profile2018ResourceManager.ResourceManagementClient(baseUri: baseUri, credentials: credential)
             {
                 SubscriptionId = subscriptionId
             };
