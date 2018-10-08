@@ -157,6 +157,7 @@
 
             // Create a network interface
             var nic = new Profile2018Network.Models.NetworkInterface();
+            var vmStorageProfile = new Profile2018Compute.Models.StorageProfile();
             try
             {
                 Console.WriteLine("Create network interface");
@@ -246,7 +247,7 @@
             };
 
             // VM Storage profile
-            var vmStorageProfile = new Profile2018Compute.Models.StorageProfile
+            vmStorageProfile = new Profile2018Compute.Models.StorageProfile
             {
                 DataDisks = new List<Profile2018Compute.Models.DataDisk>
                 {
@@ -306,6 +307,7 @@
                 Console.WriteLine("Tag virtual machine");
                 var vmTagTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine
                 {
+                    Location = location,
                     Tags = new Dictionary<string, string> { { "who-rocks", "java"}, { "where", "on azure stack"} }
                 });
                 vmTagTask.Wait();
@@ -320,6 +322,7 @@
             // Update - Add data disk
             try
             {
+                Console.WriteLine("Attach data disk to virtual machine");
                 string newDataDiskName = "dataDisk2";
                 string newDataDiskVhdUri = string.Format("{0}test/{1}.vhd", storageAccount.PrimaryEndpoints.Blob, newDataDiskName);
                 var diskProperties = new Profile2018Compute.Models.Disk
@@ -339,7 +342,7 @@
                 {
                     CreationData = new Profile2018Compute.Models.CreationData
                     {
-                        CreateOption = Profile2018Compute.Models.DiskCreateOption.Attach,
+                        CreateOption = Profile2018Compute.Models.DiskCreateOption.Empty,
                         ImageReference = new Profile2018Compute.Models.ImageDiskReference
                         {
                             Lun = 2
@@ -355,10 +358,70 @@
                 };
                 var dataTask = computeClient.Disks.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, newDataDiskName, diskProperties);
                 dataTask.Wait();
+
+                //vmStorageProfile.DataDisks.Add(new Profile2018Compute.Models.DataDisk {
+                //});
+                //var uu = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine
+                //{
+                //    StorageProfile = vmStorageProfile
+                //});
             }
             catch (Exception ex)
             {
                 Console.WriteLine(String.Format("Could not add data disk to virtual machine. Exception: {0}", ex.Message));
+            }
+
+            // Update - detach data disk
+            try
+            {
+                Console.WriteLine("Detach data disk from virtual machine");
+                vmStorageProfile.DataDisks.RemoveAt(0);
+
+                var detachTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine {
+                    StorageProfile = vmStorageProfile
+                });
+                detachTask.Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not detach data disk from virtual machine. Exception: {0}", ex.Message));
+            }
+
+            // Restart the virtual machine
+            try
+            {
+                Console.WriteLine("Restart virtual machine");
+                var restartTask = computeClient.VirtualMachines.RestartWithHttpMessagesAsync(resourceGroupName, vmName);
+                restartTask.Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not restart virtual machine. Exception: {0}", ex.Message));
+            }
+
+            // Stop(powerOff) the virtual machine
+            try
+            {
+                Console.WriteLine("Power off virtual machine");
+                var stopTask = computeClient.VirtualMachines.PowerOffWithHttpMessagesAsync(resourceGroupName, vmName);
+                stopTask.Wait();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not power off virtual machine. Exception: {0}", ex.Message));
+            }
+
+            // Delete VM
+            try
+            {
+                Console.WriteLine("Delete virtual machine");
+                var deleteTask = computeClient.VirtualMachines.DeleteWithHttpMessagesAsync(resourceGroupName, vmName);
+                deleteTask.Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not delete virtual machine. Exception: {0}", ex.Message));
             }
         }
 
@@ -398,12 +461,19 @@
 
         static void Main(string[] args)
         {
-            var location = Environment.GetEnvironmentVariable("RESOURCE_LOCATION");
-            var baseUriString = Environment.GetEnvironmentVariable("ARM_ENDPOINT");
-            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
-            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
-            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
-            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            //var location = Environment.GetEnvironmentVariable("RESOURCE_LOCATION");
+            //var baseUriString = Environment.GetEnvironmentVariable("ARM_ENDPOINT");
+            //var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            //var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            //var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            //var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+
+            var location = "local";
+            var baseUriString = "https://management.local.azurestack.external/";
+            var servicePrincipalId = "ae242bf3-2f9a-4563-a5bb-f6253c0630c8";
+            var servicePrincipalSecret = "iwqWbMcO/atvaln/wdBLQ4jCu/x3l/ihfct+p+2MGuw=";
+            var tenantId = "8272fdc6-5ec8-4aed-b10c-c09e3221910c";
+            var subscriptionId = "42a840ce-8f0d-4362-80f8-24b7ec0d32c5";
 
             runSample(tenantId, subscriptionId, servicePrincipalId, servicePrincipalSecret, location, baseUriString);
         }
