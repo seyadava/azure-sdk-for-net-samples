@@ -25,7 +25,8 @@
         static void runSample(string tenantId, string subscriptionId, string servicePrincipalId, string servicePrincipalSecret, string location, string armEndpoint)
         {
             var resourceGroupName = SdkContext.RandomResourceName("rgDotnetSdk", 24);
-            var vmName = SdkContext.RandomResourceName("vmDotnetSdk", 24); ;
+            var vmName = SdkContext.RandomResourceName("vmDotnetSdk", 24);
+            var vmNameManagedDisk = SdkContext.RandomResourceName("vmManagedDotnetSdk", 24);
             var vnetName = SdkContext.RandomResourceName("vnetDotnetSdk", 24);
             var subnetName = SdkContext.RandomResourceName("subnetDotnetSdk", 24);
             var subnetAddress = "10.0.0.0/24";
@@ -247,24 +248,21 @@
             };
 
             // VM Storage profile
+            string diskUri = string.Format("{0}test/{1}.vhd", storageAccount.PrimaryEndpoints.Blob, diskName);
+            var osDiskName = "osDisk";
+            string osDiskUri = string.Format("{0}test/{1}.vhd", storageAccount.PrimaryEndpoints.Blob, osDiskName);
             vmStorageProfile = new Profile2018Compute.Models.StorageProfile
             {
-                DataDisks = new List<Profile2018Compute.Models.DataDisk>
-                {
-                    new Profile2018Compute.Models.DataDisk
-                    {
-                        CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.Attach,
-                        ManagedDisk = new Profile2018Compute.Models.ManagedDiskParameters
-                        {
-                            StorageAccountType = Profile2018Compute.Models.StorageAccountTypes.StandardLRS,
-                            Id = disk.Id
-                        }
-                    }
-                },
                 OsDisk = new Profile2018Compute.Models.OSDisk
                 {
-                    Name = "osDisk",
-                    CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.FromImage
+                    Name = osDiskName,
+                    CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.FromImage,
+                    Caching = Profile2018Compute.Models.CachingTypes.ReadWrite,
+                    OsType = Profile2018Compute.Models.OperatingSystemTypes.Linux,
+                    Vhd = new Profile2018Compute.Models.VirtualHardDisk
+                    {
+                        Uri = osDiskUri
+                    }
                 },
                 ImageReference = new Profile2018Compute.Models.ImageReference
                 {
@@ -272,7 +270,8 @@
                     Offer = "UbuntuServer",
                     Sku = "16.04-LTS",
                     Version = "latest"
-                }
+                },
+                DataDisks = null
             };
 
             // Create Linux VM
@@ -284,7 +283,8 @@
                 var vmTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(
                     resourceGroupName,
                     vmName,
-                    new Profile2018Compute.Models.VirtualMachine {
+                    new Profile2018Compute.Models.VirtualMachine
+                    {
                         Location = location,
                         NetworkProfile = vmNetworkProfile,
                         StorageProfile = vmStorageProfile,
@@ -294,6 +294,7 @@
                 vmTask.Wait();
                 linuxVm = vmTask.Result.Body;
                 var t2 = DateTime.Now;
+                vmStorageProfile = linuxVm.StorageProfile;
                 Console.WriteLine(String.Format("Create virtual machine {0} took {1} seconds", linuxVm.Id, (t2 - t1).TotalSeconds.ToString()));
             }
             catch (Exception ex)
@@ -308,7 +309,7 @@
                 var vmTagTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine
                 {
                     Location = location,
-                    Tags = new Dictionary<string, string> { { "who-rocks", "java"}, { "where", "on azure stack"} }
+                    Tags = new Dictionary<string, string> { { "who-rocks", "java" }, { "where", "on azure stack" } }
                 });
                 vmTagTask.Wait();
                 linuxVm = vmTagTask.Result.Body;
@@ -325,46 +326,26 @@
                 Console.WriteLine("Attach data disk to virtual machine");
                 string newDataDiskName = "dataDisk2";
                 string newDataDiskVhdUri = string.Format("{0}test/{1}.vhd", storageAccount.PrimaryEndpoints.Blob, newDataDiskName);
-                var diskProperties = new Profile2018Compute.Models.Disk
+                var dataDisk = new Profile2018Compute.Models.DataDisk
                 {
-                    CreationData = new Profile2018Compute.Models.CreationData
-                    {
-                        CreateOption = Profile2018Compute.Models.DiskCreateOption.Empty,
-                    },
-                    Location = location,
-                    Sku = new Profile2018Compute.Models.DiskSku
-                    {
-                        Name = Profile2018Compute.Models.StorageAccountTypes.StandardLRS
-                    },
+                    CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.Empty,
+                    Caching = Profile2018Compute.Models.CachingTypes.ReadOnly,
                     DiskSizeGB = 1,
+                    Lun = 2,
+                    Name = newDataDiskName,
+                    Vhd = new Profile2018Compute.Models.VirtualHardDisk
+                    {
+                        Uri = newDataDiskVhdUri
+                    }
                 };
-                var a = new Profile2018Compute.Models.Disk
+                vmStorageProfile.DataDisks.Add(dataDisk);
+                var addTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine
                 {
-                    CreationData = new Profile2018Compute.Models.CreationData
-                    {
-                        CreateOption = Profile2018Compute.Models.DiskCreateOption.Empty,
-                        ImageReference = new Profile2018Compute.Models.ImageDiskReference
-                        {
-                            Lun = 2
-                        },
-                        StorageAccountId = storageAccount.Id,
-                    },
                     Location = location,
-                    Sku = new Profile2018Compute.Models.DiskSku
-                    {
-                        Name = Profile2018Compute.Models.StorageAccountTypes.StandardLRS
-                    },
-                    DiskSizeGB = 1
-                };
-                var dataTask = computeClient.Disks.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, newDataDiskName, diskProperties);
-                dataTask.Wait();
-
-                //vmStorageProfile.DataDisks.Add(new Profile2018Compute.Models.DataDisk {
-                //});
-                //var uu = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine
-                //{
-                //    StorageProfile = vmStorageProfile
-                //});
+                    StorageProfile = vmStorageProfile
+                });
+                addTask.Wait();
+                vmStorageProfile = addTask.Result.Body.StorageProfile;
             }
             catch (Exception ex)
             {
@@ -376,8 +357,8 @@
             {
                 Console.WriteLine("Detach data disk from virtual machine");
                 vmStorageProfile.DataDisks.RemoveAt(0);
-
                 var detachTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, vmName, new Profile2018Compute.Models.VirtualMachine {
+                    Location = location,
                     StorageProfile = vmStorageProfile
                 });
                 detachTask.Wait();
@@ -423,6 +404,79 @@
             {
                 Console.WriteLine(String.Format("Could not delete virtual machine. Exception: {0}", ex.Message));
             }
+
+            // VM Storage profile managed disk
+            vmStorageProfile = new Profile2018Compute.Models.StorageProfile
+            {
+                DataDisks = new List<Profile2018Compute.Models.DataDisk>
+                {
+                    new Profile2018Compute.Models.DataDisk
+                    {
+                        CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.Attach,
+                        ManagedDisk = new Profile2018Compute.Models.ManagedDiskParameters
+                        {
+                            StorageAccountType = Profile2018Compute.Models.StorageAccountTypes.StandardLRS,
+                            Id = disk.Id
+                        },
+                        Caching = Profile2018Compute.Models.CachingTypes.ReadOnly,
+                        DiskSizeGB = 1,
+                        Lun = 1,
+                        Name = diskName,
+                    }
+                },
+                OsDisk = new Profile2018Compute.Models.OSDisk
+                {
+                    Name = osDiskName,
+                    CreateOption = Profile2018Compute.Models.DiskCreateOptionTypes.FromImage,
+                },
+                ImageReference = new Profile2018Compute.Models.ImageReference
+                {
+                    Publisher = "Canonical",
+                    Offer = "UbuntuServer",
+                    Sku = "16.04-LTS",
+                    Version = "latest"
+                }
+            };
+
+            // Create Linux VM with managed disks
+            var linuxVmManagedDisk = new Profile2018Compute.Models.VirtualMachine();
+            try
+            {
+                Console.WriteLine("Create a virtual machine with managed disk");
+                var t1 = DateTime.Now;
+                var vmTask = computeClient.VirtualMachines.CreateOrUpdateWithHttpMessagesAsync(
+                    resourceGroupName,
+                    vmNameManagedDisk,
+                    new Profile2018Compute.Models.VirtualMachine
+                    {
+                        Location = location,
+                        NetworkProfile = vmNetworkProfile,
+                        StorageProfile = vmStorageProfile,
+                        OsProfile = vmOsProfile,
+                        HardwareProfile = vmHardwareProfile
+                    });
+                vmTask.Wait();
+                linuxVmManagedDisk = vmTask.Result.Body;
+                var t2 = DateTime.Now;
+                vmStorageProfile = linuxVm.StorageProfile;
+                Console.WriteLine(String.Format("Create virtual machine with managed disk {0} took {1} seconds", linuxVmManagedDisk.Id, (t2 - t1).TotalSeconds.ToString()));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not create virtual machine with managed disk. Exception: {0}", ex.Message));
+            }
+
+            // Delete VM with managed disk
+            try
+            {
+                Console.WriteLine("Delete virtual machine with managed disk");
+                var deleteTask = computeClient.VirtualMachines.DeleteWithHttpMessagesAsync(resourceGroupName, vmNameManagedDisk);
+                deleteTask.Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Could not delete virtual machine with managed disk. Exception: {0}", ex.Message));
+            }
         }
 
         static ActiveDirectoryServiceSettings getActiveDirectoryServiceSettings(string armEndpoint)
@@ -461,19 +515,12 @@
 
         static void Main(string[] args)
         {
-            //var location = Environment.GetEnvironmentVariable("RESOURCE_LOCATION");
-            //var baseUriString = Environment.GetEnvironmentVariable("ARM_ENDPOINT");
-            //var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
-            //var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
-            //var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
-            //var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
-
-            var location = "local";
-            var baseUriString = "https://management.local.azurestack.external/";
-            var servicePrincipalId = "ae242bf3-2f9a-4563-a5bb-f6253c0630c8";
-            var servicePrincipalSecret = "iwqWbMcO/atvaln/wdBLQ4jCu/x3l/ihfct+p+2MGuw=";
-            var tenantId = "8272fdc6-5ec8-4aed-b10c-c09e3221910c";
-            var subscriptionId = "42a840ce-8f0d-4362-80f8-24b7ec0d32c5";
+            var location = Environment.GetEnvironmentVariable("RESOURCE_LOCATION");
+            var baseUriString = Environment.GetEnvironmentVariable("ARM_ENDPOINT");
+            var servicePrincipalId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var servicePrincipalSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var subscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
 
             runSample(tenantId, subscriptionId, servicePrincipalId, servicePrincipalSecret, location, baseUriString);
         }
@@ -518,7 +565,7 @@
                 SubscriptionId = subscriptionId
             };
             client.SetUserAgent(ComponentName);
-
+            
             return client;
         }
     }
